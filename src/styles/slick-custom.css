@@ -1,0 +1,34 @@
+/* Tùy chỉnh màu sắc cho nút slick carousel */
+.thumbnail-slider .slick-prev,
+.thumbnail-slider .slick-next {
+    width: 30px;
+    height: 30px;
+    z-index: 1;
+    background-color: #d89c4a !important;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.thumbnail-slider .slick-prev:hover,
+.thumbnail-slider .slick-next:hover {
+    background-color: #c88c3a !important;
+}
+
+.thumbnail-slider .slick-prev:before,
+.thumbnail-slider .slick-next:before {
+    font-size: 20px;
+    color: white !important;
+}
+
+.thumbnail-slider .slick-prev {
+    left: -35px;
+}
+
+.thumbnail-slider .slick-next {
+    right: -35px;
+}
+
+/* Ẩn nút khi không cần thiết */
+.thumbnail-slider .slick-disabled {
+    display: none !important;
+}

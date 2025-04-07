@@ -83,7 +83,7 @@ const getAllTags = () => {
 const Blog = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
-  const [selectedTag, setSelectedTag] = useState(null);
+  const [selectedTag, setSelectedTag] = useState("");
 
   const { data: tagsData } = useGetTags({
     pagination: {
