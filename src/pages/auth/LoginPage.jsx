@@ -5,6 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Navigate, useNavigate } from "react-router-dom";
 import { useLogin } from "../../hooks/auth/use-login";
 import useAuthentication from "../../stores/use-authentication";
+import useToast from "../../hooks/useToast";
 
 // Zod schema
 const schema = z.object({
@@ -13,6 +14,7 @@ const schema = z.object({
 });
 
 export default function LoginPage() {
+  const { success, error } = useToast();
   const navigate = useNavigate();
   const { authenticate, isAuthenticated } = useAuthentication((state) => state);
 
@@ -27,12 +29,12 @@ export default function LoginPage() {
   const loginMutation = useLogin({
     mutationConfig: {
       onSuccess: (data) => {
+        success("Đăng nhập thành công!");
         navigate("/");
         authenticate(data.user);
       },
-      onError: (error) => {
-        console.log({ error });
-        alert("error");
+      onError: () => {
+        error("Email hoặc mật khẩu sai!");
       },
     },
   });

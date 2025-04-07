@@ -4,6 +4,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigate } from "react-router-dom";
 import { useRegister } from "../../hooks/auth/use-register";
+import useToast from "../../hooks/useToast";
 
 // Schema validation
 const schema = z.object({
@@ -12,6 +13,7 @@ const schema = z.object({
   password: z.string().min(6, "Mật khẩu phải có ít nhất 6 ký tự"),
 });
 export default function RegisterPage() {
+  const { success, error } = useToast();
   const navigate = useNavigate();
 
   const {
@@ -26,10 +28,10 @@ export default function RegisterPage() {
     mutationConfig: {
       onSuccess: () => {
         navigate("/login");
-        alert("Đăng ký thành công!");
+        success("Đăng ký thành công!");
       },
-      onError: () => {
-        alert("Đăng ký thất bại, vui lòng thử lại!");
+      onError: (error) => {
+        error("Đăng ký thất bại, vui lòng thử lại!");
       },
     },
   });
