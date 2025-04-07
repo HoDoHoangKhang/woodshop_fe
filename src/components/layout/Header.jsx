@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { useCart } from "../../context/CartContext";
 import logoImage from "../../assets/images/logo.png";
 import { useState, useEffect } from "react";
@@ -217,60 +217,26 @@ const Header = () => {
                                 </li>
                                 <li>
                                     <Link
-                                        to="/news"
+                                        to="/blog"
                                         className="text-sm text-[#9e9181] hover:text-[#d89c4a]"
                                     >
-                                        TIN TỨC
+                                        BÀI VIẾT
                                     </Link>
-                                </li>
-                                <li className="relative group">
-                                    <Link
-                                        to="/about"
-                                        className="text-sm text-[#9e9181] hover:text-[#d89c4a] flex items-center"
-                                    >
-                                        VỀ CHÚNG TÔI
-                                        <svg
-                                            className="w-4 h-4 ml-1"
-                                            fill="none"
-                                            stroke="currentColor"
-                                            viewBox="0 0 24 24"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                        >
-                                            <path
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                                strokeWidth="2"
-                                                d="M19 9l-7 7-7-7"
-                                            ></path>
-                                        </svg>
-                                    </Link>
-                                    <div className="absolute left-0 mt-2 w-48 bg-[#302924] shadow-lg rounded-md overflow-hidden z-20 transition-all duration-300 opacity-0 invisible group-hover:opacity-100 group-hover:visible">
-                                        <Link
-                                            to="/about/company"
-                                            className="block px-4 py-2 hover:bg-[#3e342d] text-xs text-[#9e9181] hover:text-[#d89c4a]"
-                                        >
-                                            Giới thiệu công ty
-                                        </Link>
-                                        <Link
-                                            to="/about/culture"
-                                            className="block px-4 py-2 hover:bg-[#3e342d] text-xs text-[#9e9181] hover:text-[#d89c4a]"
-                                        >
-                                            Văn hóa công ty
-                                        </Link>
-                                        <Link
-                                            to="/about/factory"
-                                            className="block px-4 py-2 hover:bg-[#3e342d] text-xs text-[#9e9181] hover:text-[#d89c4a]"
-                                        >
-                                            Xưởng sản xuất
-                                        </Link>
-                                    </div>
                                 </li>
                                 <li>
                                     <Link
-                                        to="/catalog"
+                                        to="/about"
                                         className="text-sm text-[#9e9181] hover:text-[#d89c4a]"
                                     >
-                                        CATALOG
+                                        VỀ CHÚNG TÔI
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link
+                                        to="/social-responsibility"
+                                        className="text-sm text-[#9e9181] hover:text-[#d89c4a]"
+                                    >
+                                        TRÁCH NHIỆM XÃ HỘI
                                     </Link>
                                 </li>
                                 <li>

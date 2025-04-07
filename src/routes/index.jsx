@@ -6,6 +6,10 @@ import Contact from "../pages/Contact";
 import Cart from "../pages/Cart";
 import Login from "../pages/LoginPage";
 import Register from "../pages/RegisterPage";
+import Checkout from "../pages/Checkout";
+import SocialResponsibility from "../pages/SocialResponsibility";
+import Blog from "../pages/Blog";
+import BlogDetail from "../pages/BlogDetail";
 
 const publicRoutes = [
     {
@@ -39,7 +43,23 @@ const publicRoutes = [
     {
         path: "/register",
         component: Register,
-    }
+    },
+    {
+        path: "/checkout",
+        component: Checkout,
+    },
+    {
+        path: "/social-responsibility",
+        component: SocialResponsibility,
+    },
+    {
+        path: "/blog",
+        component: Blog,
+    },
+    {
+        path: "/blog/:id",
+        component: BlogDetail,
+    },
 ];
 
 const privateRoutes = [];

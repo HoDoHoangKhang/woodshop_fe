@@ -91,10 +91,10 @@ const Footer = () => {
                             </li>
                             <li>
                                 <Link
-                                    to="/catalog"
+                                    to="/social-responsibility"
                                     className="text-gray-400 hover:text-[#d89c4a]"
                                 >
-                                    Catalog Good For Stem
+                                    Trách nhiệm xã hội
                                 </Link>
                             </li>
                         </ul>
@@ -139,10 +139,10 @@ const Footer = () => {
                             </li>
                             <li>
                                 <Link
-                                    to="/catalog"
+                                    to="/social-responsibility"
                                     className="text-gray-400 hover:text-[#d89c4a]"
                                 >
-                                    Catalog
+                                    Trách nhiệm xã hội
                                 </Link>
                             </li>
                             <li>
