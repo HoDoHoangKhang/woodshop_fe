@@ -22,7 +22,7 @@ const Home = () => {
   const [error, setError] = useState(null);
   const { addToCart } = useCart();
 
-  const { user } = useAuthentication((state) => state);
+  const { user, isAuthenticated } = useAuthentication((state) => state);
 
   console.log({ user });
 
