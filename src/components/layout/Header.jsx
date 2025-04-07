@@ -247,6 +247,14 @@ const Header = () => {
                                         LIÊN HỆ
                                     </Link>
                                 </li>
+                                <li>
+                                    <Link
+                                        to="/profile"
+                                        className="text-sm text-[#9e9181] hover:text-[#d89c4a]"
+                                    >
+                                        PROFILE
+                                    </Link>
+                                </li>
                             </ul>
                         </nav>
 
@@ -275,6 +283,7 @@ const Header = () => {
                                     </svg>
                                 </button>
                             </div>
+                            
                             <Link to="/login" className="hidden md:block">
                                 <svg
                                     className="w-6 h-6 text-[#9e9181] hover:text-[#d89c4a]"
@@ -291,6 +300,32 @@ const Header = () => {
                                     ></path>
                                 </svg>
                             </Link>
+                            <div className="absolute left-0 mt-2 w-48 bg-[#302924] shadow-lg rounded-md overflow-hidden z-20 transition-all duration-300 opacity-0 invisible group-hover:opacity-100 group-hover:visible">
+                                        <Link
+                                            to="/category/do-choi-go"
+                                            className="block px-4 py-2 hover:bg-[#3e342d] text-xs text-[#9e9181] hover:text-[#d89c4a]"
+                                        >
+                                            Đồ chơi gỗ
+                                        </Link>
+                                        <Link
+                                            to="/category/phu-kien-van-phong"
+                                            className="block px-4 py-2 hover:bg-[#3e342d] text-xs text-[#9e9181] hover:text-[#d89c4a]"
+                                        >
+                                            Phụ kiện văn phòng
+                                        </Link>
+                                        <Link
+                                            to="/category/do-dung-gia-dung"
+                                            className="block px-4 py-2 hover:bg-[#3e342d] text-xs text-[#9e9181] hover:text-[#d89c4a]"
+                                        >
+                                            Đồ dùng gia dụng
+                                        </Link>
+                                        <Link
+                                            to="/category/khuyen-mai"
+                                            className="block px-4 py-2 hover:bg-[#3e342d] text-xs text-[#9e9181] hover:text-[#d89c4a]"
+                                        >
+                                            Khuyến mãi
+                                        </Link>
+                                    </div>
                             <Link to="/cart" className="relative">
                                 <svg
                                     className="w-6 h-6 text-[#9e9181] hover:text-[#d89c4a]"

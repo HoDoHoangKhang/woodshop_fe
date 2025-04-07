@@ -6,6 +6,7 @@ import { useGetTags } from "../hooks/tags/use-get-tags";
 import Pagination from "../components/common/Pagination";
 import { useGetPosts } from "../hooks/posts/use-get-posts";
 import { config } from "../config/env";
+import { format } from "date-fns";
 
 // Dữ liệu mẫu cho các bài post
 export const blogPosts = [
@@ -114,7 +115,7 @@ const Blog = () => {
     },
     pagination: {
       page: currentPage,
-      pageSize: 6,
+      pageSize: 5,
     },
     sort: {
       createdAt: "desc",
@@ -210,39 +211,50 @@ const Blog = () => {
 
         {/* Danh sách bài viết */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-          {(postsData.data || []).length > 0 ? (
-            (postsData.data || []).map((post) => (
-              <div
-                key={post.id}
-                className="bg-white rounded-lg shadow-sm overflow-hidden transition-transform duration-300 hover:-translate-y-1 hover:shadow-md"
+  {(postsData.data || []).length > 0 ? (
+    (postsData.data || []).map((post) => (
+      <div
+        key={post.id}
+        className="bg-white rounded-lg shadow-sm overflow-hidden transition-transform duration-300 hover:-translate-y-1 hover:shadow-md"
+      >
+        <Link
+          to={`/blog/${post.id}`}
+          className="block"
+        >
+          <div className="relative h-48 overflow-hidden">
+            <img
+              src={`${config.BACKEND_URL}${post.image.url}`}
+              alt={post.title}
+              className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+            />
+            <div className="absolute top-2 left-2 bg-[#d89c4a] text-white text-center rounded-md px-2 py-1 text-xs font-bold">
+              {format(new Date(post.createdAt), "dd/MM/yyyy")}
+            </div>
+          </div>
+        </Link>
+        <div className="p-4">
+          
+          <h2 className="text-xl font-bold mb-2 text-[#8b5e34]">
+            <Link to={`/blog/${post.id}`} className="hover:underline">
+              {post.title}
+            </Link>
+          </h2>
+          <div class="line-clamp-3" dangerouslySetInnerHTML={{ __html: post.subtitle }}></div>
+          <div className="flex flex-wrap gap-2 mb-4">
+            {post.tags.map((tag) => (
+              <span
+                key={tag.id}
+                className="bg-amber-50 text-[#8b5e34] px-2 py-1 text-xs rounded-full cursor-pointer hover:bg-amber-100"
+                onClick={(e) => {
+                  e.stopPropagation(); // Ngăn chặn sự kiện click vào bài viết
+                  setSelectedTag(tag.id);
+                }}
               >
-                <div className="relative h-48 overflow-hidden">
-                  <img
-                    src={`${config.BACKEND_URL}${post.image.url}`}
-                    alt={post.title}
-                    className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
-                  />
-                </div>
-                <div className="p-4">
-                  <div className="text-xs text-gray-500 mb-2">
-                    {post.createdAt}
-                  </div>
-                  <h2 className="text-xl font-bold mb-2 text-[#8b5e34]">
-                    {post.title}
-                  </h2>
-                  <div dangerouslySetInnerHTML={{ __html: post.content }}></div>
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {post.tags.map((tag) => (
-                      <span
-                        key={tag.id}
-                        className="bg-amber-50 text-[#8b5e34] px-2 py-1 text-xs rounded-full"
-                        onClick={() => setSelectedTag(tag)}
-                      >
-                        {tag.name}
-                      </span>
-                    ))}
-                  </div>
-                  <Link
+                {tag.name}
+              </span>
+            ))}
+          </div>
+          <Link
                     to={`/blog/${post.id}`}
                     className="text-[#d89c4a] hover:text-[#8b5e34] font-medium inline-flex items-center"
                   >
@@ -262,43 +274,43 @@ const Blog = () => {
                       />
                     </svg>
                   </Link>
-                </div>
-              </div>
-            ))
-          ) : (
-            <div className="col-span-1 md:col-span-2 lg:col-span-3 py-16 text-center">
-              <svg
-                className="w-16 h-16 mx-auto text-gray-300 mb-4"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                />
-              </svg>
-              <h3 className="text-xl font-medium text-gray-500">
-                Không tìm thấy bài viết nào
-              </h3>
-              <p className="text-gray-400 mt-2">
-                Vui lòng thử tìm kiếm với từ khóa khác hoặc chọn lại chủ đề
-              </p>
-              <button
-                onClick={() => {
-                  setSearchTerm("");
-                  setSelectedTag("");
-                }}
-                className="mt-4 px-5 py-2 bg-[#d89c4a] text-white rounded-lg hover:bg-[#c88c3a] transition-colors"
-              >
-                Xem tất cả bài viết
-              </button>
-            </div>
-          )}
         </div>
+      </div>
+    ))
+  ) : (
+    <div className="col-span-1 md:col-span-2 lg:col-span-3 py-16 text-center">
+      <svg
+        className="w-16 h-16 mx-auto text-gray-300 mb-4"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={2}
+          d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+        />
+      </svg>
+      <h3 className="text-xl font-medium text-gray-500">
+        Không tìm thấy bài viết nào
+      </h3>
+      <p className="text-gray-400 mt-2">
+        Vui lòng thử tìm kiếm với từ khóa khác hoặc chọn lại chủ đề
+      </p>
+      <button
+        onClick={() => {
+          setSearchTerm("");
+          setSelectedTag("");
+        }}
+        className="mt-4 px-5 py-2 bg-[#d89c4a] text-white rounded-lg hover:bg-[#c88c3a] transition-colors"
+      >
+        Xem tất cả bài viết
+      </button>
+    </div>
+  )}
+</div>
 
         {/* Phân trang */}
         <Pagination

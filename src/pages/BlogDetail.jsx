@@ -1,12 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Helmet } from "react-helmet-async";
-import { Link, useParams, useNavigate } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import MainLayout from "../layouts/MainLayout";
-
-// Sử dụng dữ liệu mẫu từ Blog.jsx
-import { blogPosts } from "./Blog";
 import { config } from "../config/env";
 import { useGetPosts } from "../hooks/posts/use-get-posts";
+import { format } from "date-fns";
 
 const BlogDetail = () => {
   const { id } = useParams();
@@ -66,10 +64,6 @@ const BlogDetail = () => {
       <div className="container mx-auto py-8 px-4 md:px-8">
         <Helmet>
           <title>{post.title} - Chàng Trai Gỗ</title>
-          {/* <meta
-            name="description"
-            content={postsData.content.substring(0, 160)}
-          /> */}
         </Helmet>
 
         {/* Breadcrumb */}
@@ -93,16 +87,15 @@ const BlogDetail = () => {
               alt={post.title}
               className="w-full h-full object-cover"
             />
+            <div className="absolute top-2 left-2 bg-[#d89c4a] text-white text-center rounded-md px-3 py-2 text-xs font-bold">
+                      {format(new Date(post.createdAt), "dd/MM/yyyy")}
+                    </div>
           </div>
 
           <div className="p-6 md:p-8">
             {/* Thông tin bài viết */}
             <div className="mb-6">
-              <div className="flex gap-2 mb-3">
-                <span className="text-sm text-gray-500">{post.createdAt}</span>
-                <span className="text-sm text-gray-400">•</span>
-                <span className="text-sm text-gray-500">Chàng Trai Gỗ</span>
-              </div>
+              
               <h1 className="text-3xl font-bold mb-6 text-[#8b5e34]">
                 {post.title}
               </h1>
@@ -118,99 +111,14 @@ const BlogDetail = () => {
                 ))}
               </div>
             </div>
-
-            {/* Nội dung bài viết */}
-            <div className="prose max-w-none">
-              {/* Đây là nội dung giả lập cho bài viết chi tiết */}
-              <p className="mb-4">{}</p>
-
-              <div dangerouslySetInnerHTML={{ __html: post.content }}></div>
-              <p className="mb-4">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-                euismod, nisl vel ultricies lacinia, nisl nisl aliquam nisl,
-                eget aliquam nisl nisl sit amet nisl. Sed euismod, nisl vel
-                ultricies lacinia, nisl nisl aliquam nisl, eget aliquam nisl
-                nisl sit amet nisl.
-              </p>
-              <h2 className="text-2xl font-bold mt-8 mb-4 text-[#8b5e34]">
-                Lợi ích của đồ chơi gỗ
-              </h2>
-              <p className="mb-4">
-                Sed euismod, nisl vel ultricies lacinia, nisl nisl aliquam nisl,
-                eget aliquam nisl nisl sit amet nisl. Sed euismod, nisl vel
-                ultricies lacinia, nisl nisl aliquam nisl, eget aliquam nisl
-                nisl sit amet nisl.
-              </p>
-              <ul className="list-disc pl-6 mb-4">
-                <li className="mb-2">An toàn cho trẻ em</li>
-                <li className="mb-2">Thân thiện với môi trường</li>
-                <li className="mb-2">Bền bỉ theo thời gian</li>
-                <li className="mb-2">Phát triển kỹ năng vận động tinh</li>
-                <li className="mb-2">Kích thích trí tưởng tượng</li>
-              </ul>
-              <p className="mb-4">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-                euismod, nisl vel ultricies lacinia, nisl nisl aliquam nisl,
-                eget aliquam nisl nisl sit amet nisl. Sed euismod, nisl vel
-                ultricies lacinia, nisl nisl aliquam nisl, eget aliquam nisl
-                nisl sit amet nisl.
-              </p>
-              <blockquote className="border-l-4 border-[#d89c4a] pl-4 italic my-6">
-                "Đồ chơi gỗ không chỉ mang lại niềm vui mà còn giúp trẻ phát
-                triển nhiều kỹ năng quan trọng. Với thiết kế đơn giản nhưng đầy
-                cảm hứng, chúng là công cụ tuyệt vời để kích thích trí tưởng
-                tượng và sáng tạo của trẻ."
-              </blockquote>
-              <p className="mb-4">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-                euismod, nisl vel ultricies lacinia, nisl nisl aliquam nisl,
-                eget aliquam nisl nisl sit amet nisl. Sed euismod, nisl vel
-                ultricies lacinia, nisl nisl aliquam nisl, eget aliquam nisl
-                nisl sit amet nisl.
-              </p>
+            {/* Nội dung phụ đềđề */}
+            <div className="prose max-w-none mb-6">
+              <div dangerouslySetInnerHTML={{ __html: post.subtitle }}></div>
             </div>
 
-            {/* Chia sẻ bài viết */}
-            <div className="mt-10 pt-6 border-t border-gray-200">
-              <h3 className="text-lg font-semibold mb-4">Chia sẻ bài viết</h3>
-              <div className="flex gap-3">
-                <a
-                  href="#"
-                  className="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center text-white hover:bg-blue-700 transition-colors"
-                >
-                  <svg
-                    className="w-5 h-5"
-                    fill="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path d="M18.77 7.46H14.5v-1.9c0-.9.6-1.1 1-1.1h3V.5h-4.33C10.24.5 9.5 3.44 9.5 5.32v2.15h-3v4h3v12h5v-12h3.85l.42-4z" />
-                  </svg>
-                </a>
-                <a
-                  href="#"
-                  className="w-10 h-10 rounded-full bg-blue-400 flex items-center justify-center text-white hover:bg-blue-500 transition-colors"
-                >
-                  <svg
-                    className="w-5 h-5"
-                    fill="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path d="M23.44 4.83c-.8.37-1.5.38-2.22.02.93-.56.98-.96 1.32-2.02-.88.52-1.86.9-2.9 1.1-.82-.88-2-1.43-3.3-1.43-2.5 0-4.55 2.04-4.55 4.54 0 .36.03.7.1 1.04-3.77-.2-7.12-2-9.36-4.75-.4.67-.6 1.45-.6 2.3 0 1.56.8 2.95 2 3.77-.74-.03-1.44-.23-2.05-.57v.06c0 2.2 1.56 4.03 3.64 4.44-.67.2-1.37.2-2.06.08.58 1.8 2.26 3.12 4.25 3.16C5.78 18.1 3.37 18.74 1 18.46c2 1.3 4.4 2.04 6.97 2.04 8.35 0 12.92-6.92 12.92-12.93 0-.2 0-.4-.02-.6.9-.63 1.96-1.22 2.56-2.14z" />
-                  </svg>
-                </a>
-                <a
-                  href="#"
-                  className="w-10 h-10 rounded-full bg-green-600 flex items-center justify-center text-white hover:bg-green-700 transition-colors"
-                >
-                  <svg
-                    className="w-5 h-5"
-                    fill="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path d="M20 4H4a2 2 0 00-2 2v12a2 2 0 002 2h16a2 2 0 002-2V6a2 2 0 00-2-2zm0 4.7l-8 5.334L4 8.7V6.297l8 5.333 8-5.333V8.7z" />
-                  </svg>
-                </a>
-              </div>
+            {/* Nội dung bài viết */}
+            <div className="prose max-w-none mb-6">
+              <div dangerouslySetInnerHTML={{ __html: post.content }}></div>
             </div>
           </div>
         </div>
@@ -227,22 +135,30 @@ const BlogDetail = () => {
                   key={relatedPost.id}
                   className="bg-white rounded-lg shadow-sm overflow-hidden transition-transform duration-300 hover:-translate-y-1 hover:shadow-md"
                 >
+                  <Link
+                            to={`/blog/${relatedPost.id}`}
+                            className="block"
+                          >
                   <div className="relative h-48 overflow-hidden">
                     <img
-                      src={relatedPost.image.url}
+                      src={`${config.BACKEND_URL}${relatedPost.image.url}`}
                       alt={relatedPost.title}
                       className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
                     />
-                  </div>
-                  <div className="p-4">
-                    <div className="text-xs text-gray-500 mb-2">
-                      {relatedPost.createdAt}
+                    <div className="absolute top-2 left-2 bg-[#d89c4a] text-white text-center rounded-md px-2 py-1 text-xs font-bold">
+                      {format(new Date(post.createdAt), "dd/MM/yyyy")}
                     </div>
+                  </div>
+                  </Link>
+                  <div className="p-4">
+          
                     <h3 className="text-lg font-bold mb-2 text-[#8b5e34]">
-                      {relatedPost.title}
+                      <Link to={`/blog/${relatedPost.id}`} className="hover:underline">
+                                    {relatedPost.title}
+                                  </Link>
                     </h3>
                     <p className="text-gray-600 mb-4 line-clamp-2">
-                      {relatedPost.content}
+                      {relatedPost.subtitle}
                     </p>
                     <Link
                       to={`/blog/${relatedPost.id}`}
