@@ -10,6 +10,7 @@ import Categories from "../components/home/Categories";
 import Testimonial from "../components/home/Testimonial";
 import Activities from "../components/home/Activities";
 import ProductSection from "../components/home/ProductSection";
+import Promotion from "../components/home/Promotion";
 
 const Home = () => {
     const [products, setProducts] = useState([]);
@@ -78,6 +79,9 @@ const Home = () => {
 
             {/* Categories Section */}
             <Categories />
+
+            {/* Promotion Hot */}
+            <Promotion />
 
             {/* Promotion Products */}
             <ProductSection

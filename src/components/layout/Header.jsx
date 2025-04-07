@@ -1,14 +1,40 @@
 import { Link } from "react-router-dom";
 import { useCart } from "../../context/CartContext";
+import logoImage from "../../assets/images/logo.png";
+import { useState, useEffect } from "react";
 
 const Header = () => {
     const { totalItems } = useCart();
+    const [isScrolled, setIsScrolled] = useState(false);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            if (window.scrollY > 50) {
+                setIsScrolled(true);
+            } else {
+                setIsScrolled(false);
+            }
+        };
+
+        window.addEventListener("scroll", handleScroll);
+        return () => {
+            window.removeEventListener("scroll", handleScroll);
+        };
+    }, []);
 
     return (
-        <header>
+        <header
+            className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+                isScrolled ? "shadow-lg" : ""
+            }`}
+        >
             {/* Top header: Thông tin liên hệ */}
-            <div className="bg-[#d89c4a] text-white py-2 hidden md:block">
-                <div className="container mx-auto px-4">
+            <div
+                className={`bg-[#d89c4a] text-white py-2 transition-all duration-300 hidden md:block text-xs ${
+                    isScrolled ? "md:hidden" : ""
+                }`}
+            >
+                <div className="px-4">
                     <div className="flex justify-between items-center">
                         <div className="flex items-center space-x-4">
                             <a
@@ -16,7 +42,7 @@ const Header = () => {
                                 className="flex items-center text-white"
                             >
                                 <svg
-                                    className="w-4 h-4 mr-1"
+                                    className="w-3 h-3 mr-1"
                                     fill="currentColor"
                                     viewBox="0 0 24 24"
                                     xmlns="http://www.w3.org/2000/svg"
@@ -29,7 +55,7 @@ const Header = () => {
                                 className="flex items-center text-white"
                             >
                                 <svg
-                                    className="w-4 h-4 mr-1"
+                                    className="w-3 h-3 mr-1"
                                     fill="currentColor"
                                     viewBox="0 0 24 24"
                                     xmlns="http://www.w3.org/2000/svg"
@@ -42,7 +68,7 @@ const Header = () => {
                                 className="flex items-center text-white"
                             >
                                 <svg
-                                    className="w-4 h-4 mr-1"
+                                    className="w-3 h-3 mr-1"
                                     fill="currentColor"
                                     viewBox="0 0 24 24"
                                     xmlns="http://www.w3.org/2000/svg"
@@ -54,7 +80,7 @@ const Header = () => {
                         <div className="flex items-center space-x-6">
                             <div className="flex items-center">
                                 <svg
-                                    className="w-4 h-4 mr-1"
+                                    className="w-3 h-3 mr-1"
                                     fill="none"
                                     stroke="currentColor"
                                     viewBox="0 0 24 24"
@@ -67,11 +93,11 @@ const Header = () => {
                                         d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
                                     ></path>
                                 </svg>
-                                <span>Cửa Hàng: 0945 81 3878</span>
+                                <span>Cửa Hàng: 0123 456 789</span>
                             </div>
                             <div className="flex items-center">
                                 <svg
-                                    className="w-4 h-4 mr-1"
+                                    className="w-3 h-3 mr-1"
                                     fill="none"
                                     stroke="currentColor"
                                     viewBox="0 0 24 24"
@@ -84,11 +110,11 @@ const Header = () => {
                                         d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
                                     ></path>
                                 </svg>
-                                <span>Đại Lý & Gia Công: 0969 400 402</span>
+                                <span>Đại Lý & Phân phối: 0987 654 321</span>
                             </div>
                             <div className="flex items-center">
                                 <svg
-                                    className="w-4 h-4 mr-1"
+                                    className="w-3 h-3 mr-1"
                                     fill="none"
                                     stroke="currentColor"
                                     viewBox="0 0 24 24"
@@ -101,7 +127,7 @@ const Header = () => {
                                         d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
                                     ></path>
                                 </svg>
-                                <span>changtraigo@changtraigo.com</span>
+                                <span>contact@goodforstem.com</span>
                             </div>
                         </div>
                     </div>
@@ -109,8 +135,12 @@ const Header = () => {
             </div>
 
             {/* Main header */}
-            <div className="bg-white py-4 border-b">
-                <div className="container mx-auto px-4">
+            <div
+                className={`bg-[#302924] border-b shadow-md transition-all duration-300 ${
+                    isScrolled ? "py-2" : "py-4"
+                }`}
+            >
+                <div className="px-4">
                     <div className="flex justify-between items-center">
                         {/* Logo */}
                         <Link
@@ -118,19 +148,21 @@ const Header = () => {
                             className="text-2xl font-bold text-[#d89c4a]"
                         >
                             <img
-                                src="https://www.changtraigo.com/image/catalog/Logo-CTG-2.png"
-                                alt="Chàng Trai Gỗ"
-                                className="h-14"
+                                src={logoImage}
+                                alt="Good For Stem"
+                                className={`transition-all duration-300 ${
+                                    isScrolled ? "h-10" : "h-12"
+                                }`}
                             />
                         </Link>
 
                         {/* Main Navigation */}
                         <nav className="hidden md:block">
-                            <ul className="flex space-x-6">
+                            <ul className="flex space-x-6 items-center">
                                 <li>
                                     <Link
                                         to="/"
-                                        className="font-medium text-[#3d3d3d] hover:text-[#d89c4a]"
+                                        className="text-sm text-[#9e9181] hover:text-[#d89c4a]"
                                     >
                                         TRANG CHỦ
                                     </Link>
@@ -138,7 +170,7 @@ const Header = () => {
                                 <li className="relative group">
                                     <Link
                                         to="/products"
-                                        className="font-medium text-[#3d3d3d] hover:text-[#d89c4a] flex items-center"
+                                        className="text-sm text-[#9e9181] hover:text-[#d89c4a] flex items-center"
                                     >
                                         TẤT CẢ SẢN PHẨM
                                         <svg
@@ -156,28 +188,28 @@ const Header = () => {
                                             ></path>
                                         </svg>
                                     </Link>
-                                    <div className="absolute left-0 mt-2 w-48 bg-white shadow-lg rounded-md overflow-hidden z-20 transition-all duration-300 opacity-0 invisible group-hover:opacity-100 group-hover:visible">
+                                    <div className="absolute left-0 mt-2 w-48 bg-[#302924] shadow-lg rounded-md overflow-hidden z-20 transition-all duration-300 opacity-0 invisible group-hover:opacity-100 group-hover:visible">
                                         <Link
                                             to="/category/do-choi-go"
-                                            className="block px-4 py-2 hover:bg-gray-100 text-[#3d3d3d] hover:text-[#d89c4a]"
+                                            className="block px-4 py-2 hover:bg-[#3e342d] text-xs text-[#9e9181] hover:text-[#d89c4a]"
                                         >
                                             Đồ chơi gỗ
                                         </Link>
                                         <Link
                                             to="/category/phu-kien-van-phong"
-                                            className="block px-4 py-2 hover:bg-gray-100 text-[#3d3d3d] hover:text-[#d89c4a]"
+                                            className="block px-4 py-2 hover:bg-[#3e342d] text-xs text-[#9e9181] hover:text-[#d89c4a]"
                                         >
                                             Phụ kiện văn phòng
                                         </Link>
                                         <Link
                                             to="/category/do-dung-gia-dung"
-                                            className="block px-4 py-2 hover:bg-gray-100 text-[#3d3d3d] hover:text-[#d89c4a]"
+                                            className="block px-4 py-2 hover:bg-[#3e342d] text-xs text-[#9e9181] hover:text-[#d89c4a]"
                                         >
                                             Đồ dùng gia dụng
                                         </Link>
                                         <Link
                                             to="/category/khuyen-mai"
-                                            className="block px-4 py-2 hover:bg-gray-100 text-[#3d3d3d] hover:text-[#d89c4a]"
+                                            className="block px-4 py-2 hover:bg-[#3e342d] text-xs text-[#9e9181] hover:text-[#d89c4a]"
                                         >
                                             Khuyến mãi
                                         </Link>
@@ -186,7 +218,7 @@ const Header = () => {
                                 <li>
                                     <Link
                                         to="/news"
-                                        className="font-medium text-[#3d3d3d] hover:text-[#d89c4a]"
+                                        className="text-sm text-[#9e9181] hover:text-[#d89c4a]"
                                     >
                                         TIN TỨC
                                     </Link>
@@ -194,7 +226,7 @@ const Header = () => {
                                 <li className="relative group">
                                     <Link
                                         to="/about"
-                                        className="font-medium text-[#3d3d3d] hover:text-[#d89c4a] flex items-center"
+                                        className="text-sm text-[#9e9181] hover:text-[#d89c4a] flex items-center"
                                     >
                                         VỀ CHÚNG TÔI
                                         <svg
@@ -212,22 +244,22 @@ const Header = () => {
                                             ></path>
                                         </svg>
                                     </Link>
-                                    <div className="absolute left-0 mt-2 w-48 bg-white shadow-lg rounded-md overflow-hidden z-20 transition-all duration-300 opacity-0 invisible group-hover:opacity-100 group-hover:visible">
+                                    <div className="absolute left-0 mt-2 w-48 bg-[#302924] shadow-lg rounded-md overflow-hidden z-20 transition-all duration-300 opacity-0 invisible group-hover:opacity-100 group-hover:visible">
                                         <Link
                                             to="/about/company"
-                                            className="block px-4 py-2 hover:bg-gray-100 text-[#3d3d3d] hover:text-[#d89c4a]"
+                                            className="block px-4 py-2 hover:bg-[#3e342d] text-xs text-[#9e9181] hover:text-[#d89c4a]"
                                         >
                                             Giới thiệu công ty
                                         </Link>
                                         <Link
                                             to="/about/culture"
-                                            className="block px-4 py-2 hover:bg-gray-100 text-[#3d3d3d] hover:text-[#d89c4a]"
+                                            className="block px-4 py-2 hover:bg-[#3e342d] text-xs text-[#9e9181] hover:text-[#d89c4a]"
                                         >
                                             Văn hóa công ty
                                         </Link>
                                         <Link
                                             to="/about/factory"
-                                            className="block px-4 py-2 hover:bg-gray-100 text-[#3d3d3d] hover:text-[#d89c4a]"
+                                            className="block px-4 py-2 hover:bg-[#3e342d] text-xs text-[#9e9181] hover:text-[#d89c4a]"
                                         >
                                             Xưởng sản xuất
                                         </Link>
@@ -236,7 +268,7 @@ const Header = () => {
                                 <li>
                                     <Link
                                         to="/catalog"
-                                        className="font-medium text-[#3d3d3d] hover:text-[#d89c4a]"
+                                        className="text-sm text-[#9e9181] hover:text-[#d89c4a]"
                                     >
                                         CATALOG
                                     </Link>
@@ -244,7 +276,7 @@ const Header = () => {
                                 <li>
                                     <Link
                                         to="/contact"
-                                        className="font-medium text-[#3d3d3d] hover:text-[#d89c4a]"
+                                        className="text-sm text-[#9e9181] hover:text-[#d89c4a]"
                                     >
                                         LIÊN HỆ
                                     </Link>
@@ -258,11 +290,11 @@ const Header = () => {
                                 <input
                                     type="text"
                                     placeholder="Tìm kiếm..."
-                                    className="py-1 px-3 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-[#d89c4a] focus:border-[#d89c4a] text-sm w-48"
+                                    className="py-1 px-3 border border-[#3e342d] bg-[#3e342d] text-[#9e9181] rounded-md focus:outline-none focus:ring-1 focus:ring-[#d89c4a] focus:border-[#d89c4a] text-sm w-48"
                                 />
                                 <button className="absolute right-2 top-1/2 transform -translate-y-1/2">
                                     <svg
-                                        className="w-4 h-4 text-gray-500"
+                                        className="w-4 h-4 text-[#9e9181]"
                                         fill="none"
                                         stroke="currentColor"
                                         viewBox="0 0 24 24"
@@ -279,7 +311,7 @@ const Header = () => {
                             </div>
                             <Link to="/login" className="hidden md:block">
                                 <svg
-                                    className="w-6 h-6 text-[#3d3d3d] hover:text-[#d89c4a]"
+                                    className="w-6 h-6 text-[#9e9181] hover:text-[#d89c4a]"
                                     fill="none"
                                     stroke="currentColor"
                                     viewBox="0 0 24 24"
@@ -295,7 +327,7 @@ const Header = () => {
                             </Link>
                             <Link to="/cart" className="relative">
                                 <svg
-                                    className="w-6 h-6 text-[#3d3d3d] hover:text-[#d89c4a]"
+                                    className="w-6 h-6 text-[#9e9181] hover:text-[#d89c4a]"
                                     fill="none"
                                     stroke="currentColor"
                                     viewBox="0 0 24 24"
@@ -318,7 +350,7 @@ const Header = () => {
                             {/* Mobile menu button */}
                             <button className="md:hidden">
                                 <svg
-                                    className="w-6 h-6"
+                                    className="w-6 h-6 text-[#9e9181]"
                                     fill="none"
                                     stroke="currentColor"
                                     viewBox="0 0 24 24"

@@ -7,30 +7,31 @@ const Footer = () => {
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
                     <div>
                         <h3 className="text-xl font-bold mb-4 text-[#d89c4a]">
-                            Chàng Trai Gỗ
+                            Good For Stem
                         </h3>
                         <p className="text-gray-400">
-                            Đồ Chơi Gỗ Trẻ Em | An Toàn & Phát Triển Trí Tuệ
+                            Sản phẩm giáo dục STEM | Phát triển tư duy và kỹ
+                            năng
                         </p>
                         <div className="mt-4">
                             <p className="text-gray-400 mb-1">
-                                DEWOOD COMPANY LIMITED
+                                GOOD FOR STEM COMPANY LIMITED
                             </p>
                             <p className="text-gray-400 mb-1">
                                 MST: 0318763733
                             </p>
                             <p className="text-gray-400 mb-1">
-                                Địa chỉ: 1 Đường Thạnh Lộc 31, Thạnh Lộc, Quận
-                                12, Hồ Chí Minh
+                                Địa chỉ: 123 Đường Nguyễn Văn Linh, Quận 7, Hồ
+                                Chí Minh
                             </p>
                             <p className="text-gray-400 mb-1">
-                                Hotline: 0945 81 3878
+                                Hotline: 0123 456 789
                             </p>
                             <p className="text-gray-400 mb-1">
-                                Đại Lý & Gia Công: 0969 400 402
+                                Đại Lý & Phân phối: 0987 654 321
                             </p>
                             <p className="text-gray-400">
-                                Email: changtraigo@changtraigo.com
+                                Email: contact@goodforstem.com
                             </p>
                         </div>
                     </div>
@@ -93,7 +94,7 @@ const Footer = () => {
                                     to="/catalog"
                                     className="text-gray-400 hover:text-[#d89c4a]"
                                 >
-                                    Catalog Chàng Trai Gỗ
+                                    Catalog Good For Stem
                                 </Link>
                             </li>
                         </ul>
@@ -226,14 +227,14 @@ const Footer = () => {
                 <div className="border-t border-gray-700 mt-8 pt-6 text-center text-gray-400">
                     <div className="flex justify-center mb-4">
                         <img
-                            src="https://changtraigo.com/image/catalog/bct-50px.png"
-                            alt="Bộ Công Thương"
+                            src="/logo.png"
+                            alt="Good For Stem"
                             className="h-8"
                         />
                     </div>
                     <p>
-                        &copy; {new Date().getFullYear()} CORPORATION
-                        CHANGTRAIGO. Tất cả các quyền được bảo lưu.
+                        &copy; {new Date().getFullYear()} GOOD FOR STEM
+                        CORPORATION. Tất cả các quyền được bảo lưu.
                     </p>
                 </div>
             </div>

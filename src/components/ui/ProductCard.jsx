@@ -1,56 +1,137 @@
 import { Link } from "react-router-dom";
-import Button from "./Button";
+import { useState } from "react";
 
 const ProductCard = ({ product, addToCart, showDiscount = false }) => {
+    const [isHovered, setIsHovered] = useState(false);
+
     return (
-        <div className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition duration-300">
-            {/* Discount badge - chỉ hiển thị nếu có showDiscount và product.discount */}
+        <div
+            className="bg-white rounded-sm overflow-hidden transition duration-300 border border-gray-100 relative"
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+        >
+            {/* Discount badge */}
             {showDiscount && product.discount && (
-                <div className="relative">
-                    <span className="absolute top-2 right-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-full">
-                        -{product.discount}
-                    </span>
+                <div className="absolute top-3 left-3 bg-[#cb9d51] text-white px-2 py-1 font-semibold z-10 text-sm">
+                    -{product.discount}
                 </div>
             )}
 
-            <Link to={`/product/${product.id}`}>
-                <div className="p-4 h-48 flex items-center justify-center">
-                    <img
-                        src={product.image}
-                        alt={product.title}
-                        className="max-h-full max-w-full object-contain"
-                    />
+            {/* Product image with watermark */}
+            <div className="relative bg-[#f9f9f9]">
+                <Link to={`/product/${product.id}`}>
+                    <div className="h-52 w-full p-2 flex items-center justify-center">
+                        <img
+                            src={product.image}
+                            alt={product.title}
+                            className="h-48 max-w-full object-contain"
+                        />
+                    </div>
+                </Link>
+
+                {/* Watermark - upside down */}
+                <div className="absolute bottom-1 right-2 text-[10px] text-gray-400 transform rotate-180 opacity-80">
+                    CHANGTRAIGO.COM
                 </div>
-                <div className="p-4 border-t border-gray-200">
-                    <h3 className="font-medium text-gray-900 mb-1 text-sm h-10 overflow-hidden line-clamp-2">
+
+                {/* Action buttons appear from bottom on hover */}
+                <div
+                    className={`absolute left-0 right-0 bottom-0 flex justify-center gap-0 transition-all duration-300 bg-white bg-opacity-0 ${
+                        isHovered
+                            ? "h-10 -translate-y-0 opacity-100"
+                            : "h-0 translate-y-4 opacity-0"
+                    }`}
+                >
+                    <button
+                        onClick={() => addToCart(product)}
+                        className="w-10 h-10 bg-white flex items-center justify-center hover:bg-[#d89c4a] hover:text-white transition-colors"
+                        title="Thêm vào giỏ hàng"
+                    >
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="h-5 w-5"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                        >
+                            <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2}
+                                d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
+                            />
+                        </svg>
+                    </button>
+                    <Link
+                        to={`/product/${product.id}`}
+                        className="w-10 h-10 bg-white flex items-center justify-center hover:bg-[#d89c4a] hover:text-white transition-colors border-l border-r border-gray-100"
+                        title="Xem chi tiết"
+                    >
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="h-5 w-5"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                        >
+                            <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2}
+                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                            />
+                        </svg>
+                    </Link>
+                    <button
+                        onClick={() => {
+                            addToCart(product);
+                            // Thêm logic để chuyển đến trang thanh toán nếu cần
+                        }}
+                        className="w-10 h-10 bg-white flex items-center justify-center hover:bg-[#d89c4a] hover:text-white transition-colors"
+                        title="Mua ngay"
+                    >
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="h-5 w-5"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                        >
+                            <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2}
+                                d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
+                            />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            {/* Product details */}
+            <div className="p-2 text-center">
+                <Link to={`/product/${product.id}`}>
+                    <h3 className="font-semibold text-gray-800 text-base mb-1 truncate whitespace-nowrap overflow-hidden">
                         {product.title}
                     </h3>
                     {showDiscount && product.discountPrice ? (
-                        <div className="flex flex-col">
-                            <span className="font-bold text-[#d89c4a]">
-                                {product.discountPrice}₫
+                        <div className="flex justify-center items-center space-x-2">
+                            <span className="font-bold text-[#cb9d51] text-base">
+                                {product.discountPrice}đ
                             </span>
                             <span className="text-gray-500 line-through text-sm">
-                                {product.originalPrice}₫
+                                {product.originalPrice}đ
                             </span>
                         </div>
                     ) : (
-                        <div className="font-bold text-[#d89c4a]">
-                            {product.price.toFixed(2)}₫
+                        <div className="font-bold text-[#cb9d51] text-base">
+                            {product.price
+                                ? product.price.toLocaleString()
+                                : ""}
+                            đ
                         </div>
                     )}
-                </div>
-            </Link>
-            <div className="px-4 pb-4">
-                <Button
-                    variant="primary"
-                    size="sm"
-                    fullWidth
-                    onClick={() => addToCart(product)}
-                    className="bg-[#d89c4a] hover:bg-[#b07a2e]"
-                >
-                    Thêm vào giỏ hàng
-                </Button>
+                </Link>
             </div>
         </div>
     );
