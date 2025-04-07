@@ -5,8 +5,9 @@ export const strapi = new Strapi({
   url: config.BACKEND_URL || "http://localhost:1337/api",
   store: {
     key: "strapi_jwt",
-    useLocalStorage: false,
+    useLocalStorage: true,
     cookieOptions: { path: "/" },
   },
 });
 
+strapi.setToken(localStorage.getItem("strapi_jwt") || null);
