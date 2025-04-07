@@ -4,6 +4,7 @@ import { fetchProducts, fetchCategories } from "../services/api";
 import Button from "../components/ui/Button";
 import { useCart } from "../context/CartContext";
 import { Link } from "react-router-dom";
+import Pagination from "../components/common/Pagination";
 
 const Products = () => {
     const [products, setProducts] = useState([]);
@@ -12,6 +13,9 @@ const Products = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
     const { addToCart } = useCart();
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 12; // Số sản phẩm trên mỗi trang
+    const totalPages = 5; // Tổng số trang
 
     useEffect(() => {
         const loadData = async () => {
@@ -41,6 +45,11 @@ const Products = () => {
                   (product) => product.category === selectedCategory
               );
 
+    const handlePageChange = (page) => {
+        setCurrentPage(page);
+        // Ở đây sẽ thêm logic để lấy dữ liệu từ API
+    };
+
     if (isLoading) {
         return (
             <MainLayout>
@@ -63,29 +72,33 @@ const Products = () => {
 
     return (
         <MainLayout>
-            <div className="mb-8">
-                <h1 className="text-3xl font-bold mb-6">Tất cả sản phẩm</h1>
+            <div className="container mx-auto px-4 py-8">
+                <h1 className="text-3xl font-bold text-[#302924] mb-8">
+                    Tất Cả Sản Phẩm
+                </h1>
 
-                {/* Category Filter */}
-                <div className="mb-6 overflow-x-auto pb-2">
-                    <div className="flex space-x-2">
-                        {categories.map((category) => (
-                            <button
-                                key={category}
-                                className={`px-4 py-2 rounded-full capitalize whitespace-nowrap ${
-                                    selectedCategory === category
-                                        ? "bg-blue-600 text-white"
-                                        : "bg-gray-200 hover:bg-gray-300"
-                                }`}
-                                onClick={() => setSelectedCategory(category)}
-                            >
-                                {category}
-                            </button>
-                        ))}
-                    </div>
+                {/* Bộ lọc */}
+                <div className="mb-8 flex flex-wrap gap-4">
+                    <select className="px-4 py-2 border border-gray-300 rounded-md">
+                        <option value="">Tất cả danh mục</option>
+                        <option value="do-choi-go">Đồ chơi gỗ</option>
+                        <option value="phu-kien-van-phong">
+                            Phụ kiện văn phòng
+                        </option>
+                        <option value="do-dung-gia-dung">
+                            Đồ dùng gia dụng
+                        </option>
+                    </select>
+                    <select className="px-4 py-2 border border-gray-300 rounded-md">
+                        <option value="">Sắp xếp theo</option>
+                        <option value="price-asc">Giá tăng dần</option>
+                        <option value="price-desc">Giá giảm dần</option>
+                        <option value="name-asc">Tên A-Z</option>
+                        <option value="name-desc">Tên Z-A</option>
+                    </select>
                 </div>
 
-                {/* Product Grid */}
+                {/* Grid sản phẩm */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                     {filteredProducts.map((product) => (
                         <div
@@ -131,13 +144,12 @@ const Products = () => {
                     ))}
                 </div>
 
-                {filteredProducts.length === 0 && (
-                    <div className="text-center py-12">
-                        <p className="text-gray-500">
-                            Không tìm thấy sản phẩm nào trong danh mục này.
-                        </p>
-                    </div>
-                )}
+                {/* Phân trang */}
+                <Pagination
+                    currentPage={currentPage}
+                    totalPages={totalPages}
+                    onPageChange={handlePageChange}
+                />
             </div>
         </MainLayout>
     );
