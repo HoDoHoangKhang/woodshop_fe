@@ -26,7 +26,18 @@ const Home = () => {
 
   console.log({ user });
 
-  const { data } = useGetProducts({ options: { staleTime: 0 } });
+  const { data } = useGetProducts({
+    fields: ["id", "name"],
+    filters: {
+      name: { $containsi: "a" },
+    },
+    populate: {
+      categories: {
+        fields: ["id", "name"],
+      },
+    },
+    options: { staleTime: 0 },
+  });
 
   console.log({ data });
 

@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { strapi } from "../../libs/strapi-sdk";
 
-export const useGetProducts = ({
+export const useGetCategories = ({
   fields = "*",
   filters = {},
   populate = {},
@@ -11,7 +11,7 @@ export const useGetProducts = ({
 } = {}) => {
   return useQuery({
     queryKey: [
-      "products",
+      "categories",
       fields,
       filters,
       populate,
@@ -20,7 +20,7 @@ export const useGetProducts = ({
       options,
     ],
     queryFn: async () => {
-      return await strapi.find("products", {
+      return await strapi.find("categories", {
         fields,
         filters,
         populate,
