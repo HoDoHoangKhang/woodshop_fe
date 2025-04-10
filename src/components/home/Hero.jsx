@@ -1,12 +1,13 @@
 import { Link } from "react-router-dom";
 import Button from "../ui/Button";
+import heroImage from "../../assets/images/hero.jpg";
 
 const Hero = () => {
     return (
         <div className="relative w-full h-[90vh]">
             <div className="w-full h-full overflow-hidden">
                 <img
-                    src="https://theme.hstatic.net/1000247582/1000804728/14/ms_banner_img2.jpg?v=124"
+                    src={heroImage}
                     alt="Đồ chơi gỗ trẻ em"
                     className="w-full h-full object-cover object-center"
                 />
