@@ -10,11 +10,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@hookform/resolvers": "^5.0.1",
     "@tailwindcss/vite": "^4.0.9",
     "@tanstack/react-query": "^5.71.10",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-helmet-async": "^2.0.5",
+    "react-hook-form": "^7.55.0",
     "react-icons": "^5.5.0",
     "react-router-dom": "^7.2.0",
     "react-slick": "^0.30.3",
@@ -22,6 +24,7 @@
     "slick-carousel": "^1.8.1",
     "strapi-sdk-js": "^3.0.0",
     "tailwindcss": "^4.0.9",
+    "zod": "^3.24.2",
     "zustand": "^5.0.3"
   },
   "devDependencies": {
