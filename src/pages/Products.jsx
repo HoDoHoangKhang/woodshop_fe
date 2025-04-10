@@ -5,6 +5,7 @@ import MainLayout from "../layouts/MainLayout";
 import { useGetProducts } from "../hooks/products/use-get-products";
 import { useGetCategories } from "../hooks/categories/use-get-categories";
 import Pagination from "../components/common/Pagination";
+import ProductCard from "../components/ui/ProductCard";
 import { config } from "../config/env";
 
 const Products = () => {
@@ -150,49 +151,30 @@ const Products = () => {
                 </div>
 
                 {/* Danh sách sản phẩm */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-8">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-8">
                     {(productsData?.data || []).length > 0 ? (
                         (productsData?.data || []).map((product) => (
-                            <div
+                            <ProductCard
                                 key={product.id}
-                                className="bg-white rounded-lg shadow-sm overflow-hidden transition-transform duration-300 hover:-translate-y-1 hover:shadow-md"
-                            >
-                                <Link to={`/product/${product.id}`}>
-                                    <div className="relative h-48 overflow-hidden">
-                                        <img
-                                            src={`${config.BACKEND_URL}${product.primaryImage?.url}`}
-                                            alt={product.name}
-                                            className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
-                                        />
-                                    </div>
-                                    <div className="p-4">
-                                        <div className="text-xs text-gray-500 mb-2">
-                                            {product.category?.name}
-                                        </div>
-                                        <h2 className="text-xl font-bold mb-2 text-[#8b5e34]">
-                                            {product.name}
-                                        </h2>
-                                        <div className="flex items-center gap-2 mb-4">
-                                            <span className="text-lg font-bold text-[#d89c4a]">
-                                                {formatPrice(product.price)}
-                                            </span>
-                                            {product.originalPrice && (
-                                                <span className="text-sm text-gray-500 line-through">
-                                                    {formatPrice(
-                                                        product.originalPrice
-                                                    )}
-                                                </span>
-                                            )}
-                                        </div>
-                                        <div
-                                            className="text-gray-600 mb-4 line-clamp-2"
-                                            dangerouslySetInnerHTML={{
-                                                __html: product.description,
-                                            }}
-                                        />
-                                    </div>
-                                </Link>
-                            </div>
+                                product={{
+                                    id: product.id,
+                                    title: product.name,
+                                    image: `${config.BACKEND_URL}${product.primaryImage?.url}`,
+                                    price: product.price,
+                                    originalPrice: product.originalPrice,
+                                    discount: product.originalPrice
+                                        ? Math.round(
+                                              (1 -
+                                                  product.price /
+                                                      product.originalPrice) *
+                                                  100
+                                          ) + "%"
+                                        : null,
+                                    discountPrice: product.price,
+                                }}
+                                addToCart={() => {}}
+                                showDiscount={true}
+                            />
                         ))
                     ) : (
                         <div className="col-span-1 md:col-span-2 lg:col-span-3 xl:col-span-4 py-16 text-center">

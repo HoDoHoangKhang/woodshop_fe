@@ -6,7 +6,7 @@ const ProductCard = ({ product, addToCart, showDiscount = false }) => {
 
     return (
         <div
-            className="bg-white rounded-sm overflow-hidden transition duration-300 border border-gray-100 relative"
+            className="bg-white rounded-sm overflow-hidden transition duration-300 border border-[#e6e6e6] relative"
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
         >
@@ -20,19 +20,14 @@ const ProductCard = ({ product, addToCart, showDiscount = false }) => {
             {/* Product image with watermark */}
             <div className="relative bg-[#f9f9f9]">
                 <Link to={`/product/${product.id}`}>
-                    <div className="h-52 w-full p-2 flex items-center justify-center">
+                    <div className="h-52 w-full flex items-center justify-center">
                         <img
                             src={product.image}
                             alt={product.title}
-                            className="h-48 max-w-full object-contain"
+                            className="w-full h-full object-contain"
                         />
                     </div>
                 </Link>
-
-                {/* Watermark - upside down */}
-                <div className="absolute bottom-1 right-2 text-[10px] text-gray-400 transform rotate-180 opacity-80">
-                    CHANGTRAIGO.COM
-                </div>
 
                 {/* Action buttons appear from bottom on hover */}
                 <div
@@ -44,7 +39,7 @@ const ProductCard = ({ product, addToCart, showDiscount = false }) => {
                 >
                     <button
                         onClick={() => addToCart(product)}
-                        className="w-10 h-10 bg-white flex items-center justify-center hover:bg-[#d89c4a] hover:text-white transition-colors"
+                        className="cursor-pointer w-10 h-10 bg-white flex items-center justify-center hover:bg-[#d89c4a] hover:text-white transition-colors"
                         title="Thêm vào giỏ hàng"
                     >
                         <svg
@@ -64,7 +59,7 @@ const ProductCard = ({ product, addToCart, showDiscount = false }) => {
                     </button>
                     <Link
                         to={`/product/${product.id}`}
-                        className="w-10 h-10 bg-white flex items-center justify-center hover:bg-[#d89c4a] hover:text-white transition-colors border-l border-r border-gray-100"
+                        className="cursor-pointer w-10 h-10 bg-white flex items-center justify-center hover:bg-[#d89c4a] hover:text-white transition-colors border-l border-r border-gray-100"
                         title="Xem chi tiết"
                     >
                         <svg
@@ -87,7 +82,7 @@ const ProductCard = ({ product, addToCart, showDiscount = false }) => {
                             addToCart(product);
                             // Thêm logic để chuyển đến trang thanh toán nếu cần
                         }}
-                        className="w-10 h-10 bg-white flex items-center justify-center hover:bg-[#d89c4a] hover:text-white transition-colors"
+                        className="cursor-pointer w-10 h-10 bg-white flex items-center justify-center hover:bg-[#d89c4a] hover:text-white transition-colors"
                         title="Mua ngay"
                     >
                         <svg
@@ -119,7 +114,7 @@ const ProductCard = ({ product, addToCart, showDiscount = false }) => {
                             <span className="font-bold text-[#cb9d51] text-base">
                                 {product.discountPrice}đ
                             </span>
-                            <span className="text-gray-500 line-through text-sm">
+                            <span className="text-gray-500 line-through text-sm italic">
                                 {product.originalPrice}đ
                             </span>
                         </div>

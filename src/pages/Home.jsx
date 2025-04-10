@@ -122,7 +122,7 @@ const Home = () => {
                 title="SẢN PHẨM BÁN CHẠY NHẤT"
                 products={products}
                 addToCart={addToCart}
-                maxItems={8}
+                maxItems={4}
             />
         </MainLayout>
     );
