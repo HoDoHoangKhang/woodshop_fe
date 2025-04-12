@@ -1,10 +1,10 @@
 import { useMutation } from "@tanstack/react-query";
 import { strapi } from "../../libs/strapi-sdk";
 
-export const useRegister = ({ mutationConfig } = {}) => {
+export const useForgotPassword = ({ mutationConfig } = {}) => {
   return useMutation({
-    mutationFn: async (data) => {
-      return await strapi.register(data);
+    mutationFn: async (email) => {
+      return await strapi.forgotPassword({ email });
     },
     ...mutationConfig,
   });

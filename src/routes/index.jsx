@@ -12,64 +12,79 @@ import Blog from "../pages/Blog";
 import BlogDetail from "../pages/BlogDetail";
 import Profile from "../pages/Profile";
 import EmailVerification from "../pages/auth/EmailVerification";
+import EmailVerificationSuccess from "../pages/auth/EmailVerificationSuccess";
+import ForgotPassword from "../pages/auth/ForgotPassword";
+import ResetPassword from "../pages/auth/ResetPasswrod";
 
 const publicRoutes = [
-    {
-        path: "/",
-        component: Home,
-    },
-    {
-        path: "/about",
-        component: About,
-    },
-    {
-        path: "/products",
-        component: Products,
-    },
-    {
-        path: "/product/:id",
-        component: ProductDetail,
-    },
-    {
-        path: "/cart",
-        component: Cart,
-    },
-    {
-        path: "/contact",
-        component: Contact,
-    },
-    {
-        path: "/login",
-        component: Login,
-    },
-    {
-        path: "/register",
-        component: Register,
-    },
-    {
-        path: "/verify-email",
-        component: EmailVerification,
-    },
-    {
-        path: "/checkout",
-        component: Checkout,
-    },
-    {
-        path: "/social-responsibility",
-        component: SocialResponsibility,
-    },
-    {
-        path: "/blog",
-        component: Blog,
-    },
-    {
-        path: "/blog/:id",
-        component: BlogDetail,
-    },
-    {
-        path: "/profile",
-        component: Profile,
-    },
+  {
+    path: "/",
+    component: Home,
+  },
+  {
+    path: "/about",
+    component: About,
+  },
+  {
+    path: "/products",
+    component: Products,
+  },
+  {
+    path: "/product/:id",
+    component: ProductDetail,
+  },
+  {
+    path: "/cart",
+    component: Cart,
+  },
+  {
+    path: "/contact",
+    component: Contact,
+  },
+  {
+    path: "/login",
+    component: Login,
+  },
+  {
+    path: "/register",
+    component: Register,
+  },
+  {
+    path: "/verify-email",
+    component: EmailVerification,
+  },
+  {
+    path: "/verify-email-success",
+    component: EmailVerificationSuccess,
+  },
+  {
+    path: "/forgot-password",
+    component: ForgotPassword,
+  },
+  {
+    path: "/reset-password",
+    component: ResetPassword,
+  },
+  {
+    path: "/checkout",
+    component: Checkout,
+  },
+  {
+    path: "/social-responsibility",
+    component: SocialResponsibility,
+  },
+  {
+    path: "/blog",
+    component: Blog,
+  },
+  {
+    path: "/blog/:id",
+    component: BlogDetail,
+  },
+  {
+    path: "/profile",
+    component: Profile,
+  },
 ];
 
 const privateRoutes = [];
