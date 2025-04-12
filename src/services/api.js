@@ -1,3 +1,5 @@
+import { strapi } from "../libs/strapi-sdk";
+
 const API_URL = "https://fakestoreapi.com";
 
 export const fetchProducts = async (limit = 20) => {
@@ -92,5 +94,24 @@ export const registerUser = async (userData) => {
         return await response.json();
     } catch (error) {
         throw new Error(`Lỗi khi đăng ký: ${error.message}`);
+    }
+};
+
+export const placeOrder = async (orderData) => {
+    try {
+        const response = await strapi.request("POST",
+            `/orders/place-order`, 
+            {
+                data: orderData,
+            }
+        );
+
+        if (!response.ok) {
+            throw new Error("Đặt hàng không thành công");
+        }
+
+        return await response.json();
+    } catch (error) {
+        throw new Error(`Lỗi khi đặt hàng: ${error.message}`);
     }
 };

@@ -2,6 +2,7 @@ import { useState } from "react";
 import useAuthentication from "../stores/use-authentication";
 import { Navigate } from "react-router-dom";
 import MainLayout from "../layouts/MainLayout";
+import { useGetMyOrders } from "../hooks/orders/use-get-myorders";
 
 // Icons
 import { IoPersonOutline } from "react-icons/io5";
@@ -10,10 +11,58 @@ import { IoBagHandleOutline } from "react-icons/io5";
 const Profile = () => {
     const { isAuthenticated, user } = useAuthentication((state) => state);
     const [activeTab, setActiveTab] = useState("profile");
+    const { data: ordersData } = useGetMyOrders();
 
     if (!isAuthenticated) {
         return <Navigate to="/login" replace />;
     }
+
+    const formatCurrency = (amount) => {
+        return new Intl.NumberFormat("vi-VN", {
+            style: "currency",
+            currency: "VND",
+        }).format(amount);
+    };
+
+    const formatDate = (dateString) => {
+        const date = new Date(dateString);
+        const day = date.getDate().toString().padStart(2, "0");
+        const month = (date.getMonth() + 1).toString().padStart(2, "0");
+        const year = date.getFullYear();
+        const hours = date.getHours().toString().padStart(2, "0");
+        const minutes = date.getMinutes().toString().padStart(2, "0");
+        return `${day}/${month}/${year} ${hours}:${minutes}`;
+    };
+
+    const getStatusColor = (status) => {
+        switch (status) {
+            case "PENDING":
+                return "bg-yellow-100 text-yellow-800";
+            case "PROCESSING":
+                return "bg-blue-100 text-blue-800";
+            case "COMPLETED":
+                return "bg-green-100 text-green-800";
+            case "CANCELLED":
+                return "bg-red-100 text-red-800";
+            default:
+                return "bg-gray-100 text-gray-800";
+        }
+    };
+
+    const getStatusText = (status) => {
+        switch (status) {
+            case "PENDING":
+                return "Đang chờ xử lý";
+            case "PROCESSING":
+                return "Đang xử lý";
+            case "COMPLETED":
+                return "Đã hoàn thành";
+            case "CANCELLED":
+                return "Đã hủy";
+            default:
+                return status;
+        }
+    };
 
     return (
         <MainLayout>
@@ -131,9 +180,135 @@ const Profile = () => {
                                     <h2 className="text-xl font-semibold text-[#302924] mb-6">
                                         Đơn hàng của tôi
                                     </h2>
-                                    <div className="text-center py-8 text-[#9e9181]">
-                                        Bạn chưa có đơn hàng nào
-                                    </div>
+                                    {ordersData?.data?.length > 0 ? (
+                                        <div className="space-y-6">
+                                            {ordersData.data.map((order) => (
+                                                <div
+                                                    key={order.id}
+                                                    className="border rounded-lg p-4"
+                                                >
+                                                    <div className="flex justify-between items-start mb-4">
+                                                        <div>
+                                                            <p className="text-sm text-gray-500">
+                                                                Mã đơn hàng:{" "}
+                                                                {order.code}
+                                                            </p>
+                                                            <p className="text-sm text-gray-500">
+                                                                Ngày đặt:{" "}
+                                                                {formatDate(
+                                                                    order.createdAt
+                                                                )}
+                                                            </p>
+                                                        </div>
+                                                        <span
+                                                            className={`px-3 py-1 rounded-full text-sm font-medium ${getStatusColor(
+                                                                order.orderStatus
+                                                            )}`}
+                                                        >
+                                                            {getStatusText(
+                                                                order.orderStatus
+                                                            )}
+                                                        </span>
+                                                    </div>
+
+                                                    <div className="space-y-3">
+                                                        {order.orderDetails.map(
+                                                            (detail) => (
+                                                                <div
+                                                                    key={
+                                                                        detail.id
+                                                                    }
+                                                                    className="flex items-center gap-4 p-2 bg-gray-50 rounded"
+                                                                >
+                                                                    <div className="w-16 h-16 bg-gray-200 rounded flex items-center justify-center">
+                                                                        {detail
+                                                                            .product
+                                                                            ?.primaryImage ? (
+                                                                            <img
+                                                                                src={
+                                                                                    detail
+                                                                                        .product
+                                                                                        .primaryImage
+                                                                                        .url
+                                                                                }
+                                                                                alt={
+                                                                                    detail
+                                                                                        .product
+                                                                                        .name
+                                                                                }
+                                                                                className="w-full h-full object-cover rounded"
+                                                                            />
+                                                                        ) : (
+                                                                            <span className="text-gray-400">
+                                                                                No
+                                                                                image
+                                                                            </span>
+                                                                        )}
+                                                                    </div>
+                                                                    <div className="flex-1">
+                                                                        <h4 className="font-medium">
+                                                                            {
+                                                                                detail
+                                                                                    .product
+                                                                                    .name
+                                                                            }
+                                                                        </h4>
+                                                                        <p className="text-sm text-gray-500">
+                                                                            {formatCurrency(
+                                                                                detail.price
+                                                                            )}{" "}
+                                                                            x{" "}
+                                                                            {
+                                                                                detail.quantity
+                                                                            }
+                                                                        </p>
+                                                                    </div>
+                                                                    <div className="text-right">
+                                                                        <p className="font-medium">
+                                                                            {formatCurrency(
+                                                                                detail.price *
+                                                                                    detail.quantity
+                                                                            )}
+                                                                        </p>
+                                                                    </div>
+                                                                </div>
+                                                            )
+                                                        )}
+                                                    </div>
+
+                                                    <div className="mt-4 pt-4 border-t flex justify-between items-center">
+                                                        <div>
+                                                            <p className="text-sm text-gray-500">
+                                                                Tổng tiền:
+                                                            </p>
+                                                            <p className="text-lg font-semibold text-[#302924]">
+                                                                {formatCurrency(
+                                                                    order.totalPrice
+                                                                )}
+                                                            </p>
+                                                        </div>
+                                                        <div className="text-sm text-gray-500">
+                                                            {order.isPaid ? (
+                                                                <span className="text-green-600">
+                                                                    Đã thanh
+                                                                    toán
+                                                                </span>
+                                                            ) : (
+                                                                <span className="text-red-600">
+                                                                    Chưa thanh
+                                                                    toán
+                                                                </span>
+                                                            )}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    ) : (
+                                        <div className="text-center py-8 text-[#9e9181]">
+                                            Bạn chưa có đơn hàng nào
+                                        </div>
+                                    )}
                                 </div>
                             )}
                         </div>
