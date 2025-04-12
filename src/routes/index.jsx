@@ -10,6 +10,8 @@ import Checkout from "../pages/Checkout";
 import SocialResponsibility from "../pages/SocialResponsibility";
 import Blog from "../pages/Blog";
 import BlogDetail from "../pages/BlogDetail";
+import Profile from "../pages/Profile";
+import EmailVerification from "../pages/auth/EmailVerification";
 
 const publicRoutes = [
     {
@@ -45,6 +47,10 @@ const publicRoutes = [
         component: Register,
     },
     {
+        path: "/verify-email",
+        component: EmailVerification,
+    },
+    {
         path: "/checkout",
         component: Checkout,
     },
@@ -59,6 +65,10 @@ const publicRoutes = [
     {
         path: "/blog/:id",
         component: BlogDetail,
+    },
+    {
+        path: "/profile",
+        component: Profile,
     },
 ];
 
