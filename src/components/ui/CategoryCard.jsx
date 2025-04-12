@@ -1,13 +1,16 @@
 import { Link } from "react-router-dom";
+import defaultImage from "../../assets/images/product_default.jpg";
 
 const CategoryCard = ({ title, image, link, reverse = false }) => {
+    const imageSrc = image || defaultImage;
+
     return (
         <div className="flex h-56 overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300">
             {!reverse ? (
                 <>
                     <div className="w-1/2 overflow-hidden">
                         <img
-                            src={image}
+                            src={imageSrc}
                             alt={title}
                             className="w-full h-full object-cover"
                         />
@@ -39,7 +42,7 @@ const CategoryCard = ({ title, image, link, reverse = false }) => {
                     </div>
                     <div className="w-1/2 overflow-hidden">
                         <img
-                            src={image}
+                            src={imageSrc}
                             alt={title}
                             className="w-full h-full object-cover"
                         />

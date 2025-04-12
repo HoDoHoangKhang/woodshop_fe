@@ -91,7 +91,16 @@ const ProductDetail = () => {
 
     const handleAddToCart = () => {
         if (product) {
-            addToCart(product, quantity);
+            addToCart(
+                {
+                    id: product.id,
+                    title: product.name,
+                    image: `${config.BACKEND_URL}${product.primaryImage?.url}`,
+                    price: product.price,
+                    quantity: quantity,
+                },
+                quantity
+            );
             success("Đã thêm sản phẩm vào giỏ hàng!");
         }
     };
@@ -410,9 +419,21 @@ const ProductDetail = () => {
                                                     : null,
                                             discountPrice: relatedProduct.price,
                                         }}
-                                        addToCart={() =>
-                                            addToCart(relatedProduct)
-                                        }
+                                        addToCart={() => {
+                                            addToCart(
+                                                {
+                                                    id: relatedProduct.id,
+                                                    title: relatedProduct.name,
+                                                    image: `${config.BACKEND_URL}${relatedProduct.primaryImage?.url}`,
+                                                    price: relatedProduct.price,
+                                                    quantity: 1,
+                                                },
+                                                1
+                                            );
+                                            success(
+                                                "Đã thêm sản phẩm vào giỏ hàng!"
+                                            );
+                                        }}
                                         showDiscount={true}
                                     />
                                 )

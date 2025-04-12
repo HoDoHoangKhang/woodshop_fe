@@ -1,12 +1,17 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import MainLayout from "../layouts/MainLayout";
 import Button from "../components/ui/Button";
 import { useCart } from "../context/CartContext";
+import useToast from "../hooks/useToast";
+import { config } from "../config/env";
+import { placeOrder } from "../services/api";
 
 const Checkout = () => {
+    const navigate = useNavigate();
     const { cartItems, totalItems, totalAmount } = useCart();
+    const { success, error } = useToast();
     const [formData, setFormData] = useState({
         fullName: "",
         email: "",
@@ -16,11 +21,100 @@ const Checkout = () => {
         district: "",
         ward: "",
         notes: "",
-        paymentMethod: "cod", // Mặc định là thanh toán khi nhận hàng
+        paymentMethod: "CASH_ON_DELIVERY", // Mặc định là thanh toán khi nhận hàng
     });
 
+    const [provinces, setProvinces] = useState([]);
+    const [districts, setDistricts] = useState([]);
+    const [wards, setWards] = useState([]);
+    const [selectedProvince, setSelectedProvince] = useState(null);
+    const [selectedDistrict, setSelectedDistrict] = useState(null);
     const [discountCode, setDiscountCode] = useState("");
     const [discount, setDiscount] = useState(0);
+
+    // Fetch tỉnh/thành phố
+    useEffect(() => {
+        const fetchProvinces = async () => {
+            try {
+                const response = await fetch(
+                    "https://provinces.open-api.vn/api/p/"
+                );
+                const data = await response.json();
+                // Sắp xếp tỉnh theo thứ tự A-Z
+                const sortedProvinces = data.sort((a, b) =>
+                    a.name.localeCompare(b.name)
+                );
+                setProvinces(sortedProvinces);
+            } catch (error) {
+                console.error("Lỗi khi lấy danh sách tỉnh/thành:", error);
+            }
+        };
+        fetchProvinces();
+    }, []);
+
+    // Fetch quận/huyện khi chọn tỉnh/thành
+    useEffect(() => {
+        const fetchDistricts = async () => {
+            if (selectedProvince) {
+                try {
+                    const province = provinces.find(
+                        (p) => p.name === selectedProvince
+                    );
+                    if (province) {
+                        const response = await fetch(
+                            `https://provinces.open-api.vn/api/p/${province.code}?depth=2`
+                        );
+                        const data = await response.json();
+                        // Sắp xếp quận/huyện theo thứ tự A-Z
+                        const sortedDistricts = data.districts.sort((a, b) =>
+                            a.name.localeCompare(b.name)
+                        );
+                        setDistricts(sortedDistricts);
+                        setWards([]);
+                        setFormData((prev) => ({
+                            ...prev,
+                            district: "",
+                            ward: "",
+                        }));
+                    }
+                } catch (error) {
+                    console.error("Lỗi khi lấy danh sách quận/huyện:", error);
+                }
+            }
+        };
+        fetchDistricts();
+    }, [selectedProvince, provinces]);
+
+    // Fetch phường/xã khi chọn quận/huyện
+    useEffect(() => {
+        const fetchWards = async () => {
+            if (selectedDistrict) {
+                try {
+                    const district = districts.find(
+                        (d) => d.name === selectedDistrict
+                    );
+                    if (district) {
+                        const response = await fetch(
+                            `https://provinces.open-api.vn/api/d/${district.code}?depth=2`
+                        );
+                        const data = await response.json();
+                        // Sắp xếp phường/xã theo thứ tự A-Z
+                        const sortedWards = data.wards.sort((a, b) =>
+                            a.name.localeCompare(b.name)
+                        );
+                        setWards(sortedWards);
+                        setFormData((prev) => ({
+                            ...prev,
+                            ward: "",
+                        }));
+                    }
+                } catch (error) {
+                    console.error("Lỗi khi lấy danh sách phường/xã:", error);
+                }
+            }
+        };
+        fetchWards();
+    }, [selectedDistrict, districts]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -28,6 +122,12 @@ const Checkout = () => {
             ...prevState,
             [name]: value,
         }));
+
+        if (name === "province") {
+            setSelectedProvince(value);
+        } else if (name === "district") {
+            setSelectedDistrict(value);
+        }
     };
 
     const handleDiscountCode = () => {
@@ -38,21 +138,58 @@ const Checkout = () => {
             setDiscount(50000);
         } else {
             setDiscount(0);
-            alert("Mã giảm giá không hợp lệ!");
+            error("Mã giảm giá không hợp lệ!");
         }
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // Xử lý đặt hàng
-        console.log("Đặt hàng:", {
-            formData,
-            cartItems,
-            totalAmount,
-            discount,
-        });
-        // Trong dự án thực sẽ gửi request đến API
-        // Sau khi đặt hàng thành công, có thể chuyển hướng đến trang xác nhận đơn hàng
+
+        // Kiểm tra thông tin bắt buộc
+        if (
+            !formData.fullName ||
+            !formData.phone ||
+            !formData.address ||
+            !formData.province ||
+            !formData.district ||
+            !formData.ward
+        ) {
+            error("Vui lòng điền đầy đủ thông tin bắt buộc!");
+            return;
+        }
+
+        // Chuẩn bị dữ liệu đặt hàng
+        const orderData = {
+            email: formData.email,
+            fullName: formData.fullName,
+            phoneNumber: formData.phone,
+            paymentMethod:
+                formData.paymentMethod === "CASH_ON_DELIVERY"
+                    ? "CASH_ON_DELIVERY"
+                    : "BANKING",
+            address: {
+                province: formData.province,
+                district: formData.district,
+                ward: formData.ward,
+                detail: formData.address,
+            },
+            products: cartItems.map((item) => ({
+                id: item.id,
+                quantity: item.quantity,
+            })),
+        };
+
+        try {
+            const result = await placeOrder(orderData);
+
+            // Xử lý kết quả đặt hàng thành công
+            success("Đặt hàng thành công!");
+            // Chuyển hướng đến trang xác nhận đơn hàng
+            navigate(`/order-confirmation?orderId=${result.data.id}`);
+        } catch (error) {
+            console.error("Lỗi khi đặt hàng:", error);
+            error("Có lỗi xảy ra khi đặt hàng. Vui lòng thử lại sau!");
+        }
     };
 
     if (cartItems.length === 0) {
@@ -231,15 +368,14 @@ const Checkout = () => {
                                             <option value="">
                                                 Chọn tỉnh/thành
                                             </option>
-                                            <option value="Hồ Chí Minh">
-                                                Hồ Chí Minh
-                                            </option>
-                                            <option value="Hà Nội">
-                                                Hà Nội
-                                            </option>
-                                            <option value="Đà Nẵng">
-                                                Đà Nẵng
-                                            </option>
+                                            {provinces.map((province) => (
+                                                <option
+                                                    key={province.code}
+                                                    value={province.name}
+                                                >
+                                                    {province.name}
+                                                </option>
+                                            ))}
                                         </select>
                                     </div>
 
@@ -264,20 +400,14 @@ const Checkout = () => {
                                             <option value="">
                                                 Chọn quận/huyện
                                             </option>
-                                            {formData.province ===
-                                                "Hồ Chí Minh" && (
-                                                <>
-                                                    <option value="Quận 1">
-                                                        Quận 1
-                                                    </option>
-                                                    <option value="Quận 2">
-                                                        Quận 2
-                                                    </option>
-                                                    <option value="Quận 12">
-                                                        Quận 12
-                                                    </option>
-                                                </>
-                                            )}
+                                            {districts.map((district) => (
+                                                <option
+                                                    key={district.code}
+                                                    value={district.name}
+                                                >
+                                                    {district.name}
+                                                </option>
+                                            ))}
                                         </select>
                                     </div>
 
@@ -302,17 +432,14 @@ const Checkout = () => {
                                             <option value="">
                                                 Chọn phường/xã
                                             </option>
-                                            {formData.district ===
-                                                "Quận 12" && (
-                                                <>
-                                                    <option value="Thành Lộc">
-                                                        Thành Lộc
-                                                    </option>
-                                                    <option value="Tân Chánh Hiệp">
-                                                        Tân Chánh Hiệp
-                                                    </option>
-                                                </>
-                                            )}
+                                            {wards.map((ward) => (
+                                                <option
+                                                    key={ward.code}
+                                                    value={ward.name}
+                                                >
+                                                    {ward.name}
+                                                </option>
+                                            ))}
                                         </select>
                                     </div>
                                 </div>
@@ -348,10 +475,11 @@ const Checkout = () => {
                                             type="radio"
                                             id="payment-cod"
                                             name="paymentMethod"
-                                            value="cod"
+                                            value="CASH_ON_DELIVERY"
                                             className="mr-2"
                                             checked={
-                                                formData.paymentMethod === "cod"
+                                                formData.paymentMethod ===
+                                                "CASH_ON_DELIVERY"
                                             }
                                             onChange={handleChange}
                                         />
@@ -384,11 +512,11 @@ const Checkout = () => {
                                             type="radio"
                                             id="payment-bank"
                                             name="paymentMethod"
-                                            value="bank"
+                                            value="BANKING"
                                             className="mr-2"
                                             checked={
                                                 formData.paymentMethod ===
-                                                "bank"
+                                                "BANKING"
                                             }
                                             onChange={handleChange}
                                         />
@@ -416,7 +544,7 @@ const Checkout = () => {
                                         </label>
                                     </div>
 
-                                    {formData.paymentMethod === "bank" && (
+                                    {formData.paymentMethod === "BANKING" && (
                                         <div className="ml-6 p-4 bg-gray-50 rounded">
                                             <p className="mb-2">
                                                 <strong>
@@ -518,14 +646,14 @@ const Checkout = () => {
                                     </span>
                                 </div>
 
-                                <Button
-                                    type="submit"
-                                    variant="success"
-                                    fullWidth
-                                    className="bg-[#d89c4a] hover:bg-[#c88c3a]"
-                                >
-                                    Đặt hàng
-                                </Button>
+                                <div className="mt-6">
+                                    <Button
+                                        type="submit"
+                                        className="w-full bg-[#d89c4a] hover:bg-[#c88c3a] text-white py-3 px-6 rounded-md"
+                                    >
+                                        Đặt hàng
+                                    </Button>
+                                </div>
 
                                 <p className="text-sm text-gray-500 mt-4">
                                     Bằng cách đặt hàng, bạn đồng ý với

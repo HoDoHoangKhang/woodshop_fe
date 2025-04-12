@@ -172,7 +172,19 @@ const Products = () => {
                                         : null,
                                     discountPrice: product.price,
                                 }}
-                                addToCart={() => {}}
+                                addToCart={() => {
+                                    addToCart(
+                                        {
+                                            id: product.id,
+                                            title: product.name,
+                                            image: `${config.BACKEND_URL}${product.primaryImage?.url}`,
+                                            price: product.price,
+                                            quantity: 1,
+                                        },
+                                        1
+                                    );
+                                    success("Đã thêm sản phẩm vào giỏ hàng!");
+                                }}
                                 showDiscount={true}
                             />
                         ))
