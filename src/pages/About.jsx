@@ -190,25 +190,14 @@ const About = () => {
                                         </span>
                                     </div>
                                     <p className="text-gray-700">
-                                        Trở thành thương hiệu Việt tiên phong
-                                        trong lĩnh vực đồ chơi gỗ hướng STEM.
-                                    </p>
-                                </li>
-                                <li className="flex items-start">
-                                    <div className="h-6 w-6 rounded-full bg-[#d89c4a] flex items-center justify-center mr-3 mt-0.5 flex-shrink-0">
-                                        <span className="text-white font-bold">
-                                            2
-                                        </span>
-                                    </div>
-                                    <p className="text-gray-700">
-                                        Đưa sản phẩm đến tay 10.000 trẻ em trên
+                                        Đưa sản phẩm đến tay 5.000 trẻ em trên
                                         toàn quốc trong 3 năm tới.
                                     </p>
                                 </li>
                                 <li className="flex items-start">
                                     <div className="h-6 w-6 rounded-full bg-[#d89c4a] flex items-center justify-center mr-3 mt-0.5 flex-shrink-0">
                                         <span className="text-white font-bold">
-                                            3
+                                            2
                                         </span>
                                     </div>
                                     <p className="text-gray-700">
@@ -220,7 +209,7 @@ const About = () => {
                                 <li className="flex items-start">
                                     <div className="h-6 w-6 rounded-full bg-[#d89c4a] flex items-center justify-center mr-3 mt-0.5 flex-shrink-0">
                                         <span className="text-white font-bold">
-                                            4
+                                            3
                                         </span>
                                     </div>
                                     <p className="text-gray-700">

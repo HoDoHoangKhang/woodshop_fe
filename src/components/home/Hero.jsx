@@ -15,11 +15,10 @@ const Hero = () => {
             </div>
             <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 max-w-lg text-center">
                 <h1 className="text-3xl md:text-4xl font-bold text-white mb-4 drop-shadow-lg">
-                    Niềm Vui Của Con - Hạnh Phúc Của Ba Mẹ
+                    Hands-on learning, minds-on growing
                 </h1>
                 <p className="text-lg text-white mb-6 drop-shadow-md">
-                    Món đồ chơi thật sự tốt là khi bé phát huy khả năng tưởng
-                    tượng và sáng tạo không giới hạn của mình.
+                    Đồ chơi tụi mình chọn – Yêu thương tụi mình trao.
                 </p>
                 <Button
                     size="lg"

@@ -5,7 +5,7 @@ const Footer = () => {
         <footer className="bg-[#333333] text-white mt-10">
             <div className="container mx-auto px-4 py-12">
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-                    <div>
+                    <div className="md:col-span-2">
                         <h3 className="text-xl font-bold mb-4 text-[#d89c4a]">
                             Good For Stem
                         </h3>
@@ -34,70 +34,6 @@ const Footer = () => {
                                 Email: contact@goodforstem.com
                             </p>
                         </div>
-                    </div>
-
-                    <div>
-                        <h3 className="text-xl font-bold mb-4 text-[#d89c4a]">
-                            Dịch vụ khách hàng
-                        </h3>
-                        <ul className="space-y-2">
-                            <li>
-                                <Link
-                                    to="/guide"
-                                    className="text-gray-400 hover:text-[#d89c4a]"
-                                >
-                                    Hướng dẫn mua hàng
-                                </Link>
-                            </li>
-                            <li>
-                                <Link
-                                    to="/payment"
-                                    className="text-gray-400 hover:text-[#d89c4a]"
-                                >
-                                    Đặt hàng và thanh toán
-                                </Link>
-                            </li>
-                            <li>
-                                <Link
-                                    to="/shipping"
-                                    className="text-gray-400 hover:text-[#d89c4a]"
-                                >
-                                    Giao và nhận hàng
-                                </Link>
-                            </li>
-                            <li>
-                                <Link
-                                    to="/return-policy"
-                                    className="text-gray-400 hover:text-[#d89c4a]"
-                                >
-                                    Chính sách đổi/trả hàng và hoàn tiền
-                                </Link>
-                            </li>
-                            <li>
-                                <Link
-                                    to="/privacy-policy"
-                                    className="text-gray-400 hover:text-[#d89c4a]"
-                                >
-                                    Chính sách bảo mật thông tin
-                                </Link>
-                            </li>
-                            <li>
-                                <Link
-                                    to="/agents"
-                                    className="text-gray-400 hover:text-[#d89c4a]"
-                                >
-                                    Danh sách đại lý toàn quốc
-                                </Link>
-                            </li>
-                            <li>
-                                <Link
-                                    to="/social-responsibility"
-                                    className="text-gray-400 hover:text-[#d89c4a]"
-                                >
-                                    Trách nhiệm xã hội
-                                </Link>
-                            </li>
-                        </ul>
                     </div>
 
                     <div>
@@ -160,7 +96,7 @@ const Footer = () => {
                         <h3 className="text-xl font-bold mb-4 text-[#d89c4a]">
                             Theo dõi chúng tôi
                         </h3>
-                        <div className="flex space-x-4 mb-6">
+                        <div className="flex space-x-4">
                             <a
                                 href="https://facebook.com"
                                 target="_blank"
@@ -207,35 +143,17 @@ const Footer = () => {
                                 </svg>
                             </a>
                         </div>
-
-                        <h3 className="text-xl font-bold mb-4 text-[#d89c4a]">
-                            Đăng ký nhận khuyến mãi
-                        </h3>
-                        <div className="flex">
-                            <input
-                                type="email"
-                                placeholder="Email của bạn"
-                                className="py-2 px-3 w-full text-gray-900 rounded-l-md focus:outline-none focus:ring-1 focus:ring-[#d89c4a]"
-                            />
-                            <button className="bg-[#d89c4a] hover:bg-[#b07a2e] text-white py-2 px-4 rounded-r-md">
-                                Đăng ký
-                            </button>
-                        </div>
                     </div>
                 </div>
 
                 <div className="border-t border-gray-700 mt-8 pt-6 text-center text-gray-400">
-                    <div className="flex justify-center mb-4">
+                    <div className="flex justify-center">
                         <img
                             src="/logo.png"
                             alt="Good For Stem"
                             className="h-8"
                         />
                     </div>
-                    <p>
-                        &copy; {new Date().getFullYear()} GOOD FOR STEM
-                        CORPORATION. Tất cả các quyền được bảo lưu.
-                    </p>
                 </div>
             </div>
         </footer>

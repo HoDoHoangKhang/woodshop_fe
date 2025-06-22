@@ -6,7 +6,9 @@ import { fetchCategories, fetchProducts } from "../services/api";
 // Import các component con
 import Activities from "../components/home/Activities";
 import Categories from "../components/home/Categories";
+import Founder from "../components/home/Founder";
 import Hero from "../components/home/Hero";
+import Introduction from "../components/home/Introduction";
 import ProductSection from "../components/home/ProductSection";
 import Promotion from "../components/home/Promotion";
 import Services from "../components/home/Services";
@@ -94,6 +96,9 @@ const Home = () => {
             {/* Hero Banner */}
             <Hero />
 
+            {/* Introduction Section */}
+            <Introduction />
+
             {/* Services */}
             <Services />
 
@@ -113,6 +118,8 @@ const Home = () => {
                 maxItems={8}
             />
 
+            {/* Founder Section */}
+            <Founder />
 
             {/* Activities */}
             <Activities />
