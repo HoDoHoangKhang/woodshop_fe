@@ -50,7 +50,7 @@ const Contact = () => {
           <meta name="description" content="Thông tin liên hệ Chàng Trai Gỗ" />
         </Helmet>
 
-        <h1 className="text-2xl font-bold mb-6 uppercase border-b border-gray-200 pb-2">
+        <h1 className="text-2xl font-bold mb-6 uppercase border-b border-gray-200 pb-2 text-[#d89c4a]">
           LIÊN HỆ
         </h1>
 

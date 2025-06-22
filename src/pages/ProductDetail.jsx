@@ -209,7 +209,7 @@ const ProductDetail = () => {
                                                 >
                                                     <div className="aspect-square">
                                                         <img
-                                                            src={`${config.BACKEND_URL}${image.url}`}
+                                                            src={`${config.BACKEND_URL}${image?.url}`}
                                                             alt={`${
                                                                 product.name
                                                             } - Ảnh ${

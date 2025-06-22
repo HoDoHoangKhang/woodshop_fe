@@ -1,26 +1,16 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
-import MainLayout from "../layouts/MainLayout";
-import { useGetProducts } from "../hooks/products/use-get-products";
-import { useGetCategories } from "../hooks/categories/use-get-categories";
 import Pagination from "../components/common/Pagination";
 import ProductCard from "../components/ui/ProductCard";
 import { config } from "../config/env";
+import { useGetProducts } from "../hooks/products/use-get-products";
+import MainLayout from "../layouts/MainLayout";
 
 const Products = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
-
-  const { data: categoriesData } = useGetCategories({
-    pagination: {
-      limit: 999,
-    },
-    options: {
-      staleTime: 0,
-    },
-  });
 
   const { data: productsData } = useGetProducts({
     fields: [
@@ -49,7 +39,7 @@ const Products = () => {
     },
     pagination: {
       page: currentPage,
-      pageSize: 6,
+      pageSize: 8,
     },
     sort: {
       createdAt: "desc",
@@ -61,10 +51,6 @@ const Products = () => {
 
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
-  };
-
-  const handleCategoryChange = (e) => {
-    setSelectedCategory(e.target.value);
   };
 
   const handlePageChange = (page) => {

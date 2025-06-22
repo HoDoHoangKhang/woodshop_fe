@@ -64,7 +64,6 @@ const Checkout = () => {
     fetchProvinces();
   }, []);
 
-  // Fetch quận/huyện khi chọn tỉnh/thành
   useEffect(() => {
     const fetchDistricts = async () => {
       if (selectedProvince) {

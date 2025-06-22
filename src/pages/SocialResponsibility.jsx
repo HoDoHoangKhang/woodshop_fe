@@ -25,7 +25,7 @@ const SocialResponsibility = () => {
         </nav>
 
         <div className="bg-white rounded-lg shadow-sm p-6 md:p-8 lg:p-10">
-          <h3 className="text-[#8b5e34] md:text-4xl font-bold px-4 pb-4 text-center">
+          <h3 className="text-[#d89c4a] md:text-4xl font-bold px-4 pb-4 text-center">
             Trách nhiệm xã hội
           </h3>
           <div className="mb-12 text-center">
@@ -154,21 +154,21 @@ const SocialResponsibility = () => {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div className="relative h-48 rounded-lg overflow-hidden">
                 <img
-                  src="https://images.unsplash.com/photo-1515187029135-18ee286d815b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+                  src="/images/activity-1.avif"
                   alt="Lớp học STEM"
                   className="absolute w-full h-full object-cover"
                 />
               </div>
               <div className="relative h-48 rounded-lg overflow-hidden">
                 <img
-                  src="https://images.unsplash.com/photo-1515187029135-18ee286d815b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+                  src="/images/activity-2.avif"
                   alt="Lớp học STEM"
                   className="absolute w-full h-full object-cover"
                 />
               </div>
               <div className="relative h-48 rounded-lg overflow-hidden">
                 <img
-                  src="https://images.unsplash.com/photo-1515187029135-18ee286d815b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+                  src="/images/activity-1.avif"
                   alt="Lớp học STEM"
                   className="absolute w-full h-full object-cover"
                 />

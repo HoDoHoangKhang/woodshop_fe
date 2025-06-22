@@ -7,79 +7,6 @@ import Pagination from "../components/common/Pagination";
 import { useGetPosts } from "../hooks/posts/use-get-posts";
 import { config } from "../config/env";
 
-// Dữ liệu mẫu cho các bài post
-export const blogPosts = [
-  {
-    id: 1,
-    title: "Đồ chơi gỗ - Lựa chọn xanh cho trẻ thơ",
-    content:
-      "Đồ chơi gỗ không chỉ là món đồ chơi an toàn mà còn giúp phát triển tư duy sáng tạo và khả năng vận động tinh cho trẻ. Với nguyên liệu từ thiên nhiên, đồ chơi gỗ thân thiện với môi trường và bền bỉ theo thời gian...",
-    image:
-      "https://images.unsplash.com/photo-1577896852618-ac6774c12543?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
-    date: "15/06/2023",
-    tags: ["đồ chơi gỗ", "stem", "phát triển trẻ em"],
-  },
-  {
-    id: 2,
-    title: "5 lợi ích của đồ chơi STEM cho trẻ mầm non",
-    content:
-      "Đồ chơi STEM không chỉ mang lại niềm vui mà còn giúp trẻ phát triển tư duy logic, kỹ năng giải quyết vấn đề và sự sáng tạo. Nghiên cứu cho thấy trẻ em tiếp xúc sớm với các khái niệm STEM sẽ có lợi thế lớn trong học tập sau này...",
-    image:
-      "https://images.unsplash.com/photo-1599623560574-39d485900c95?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
-    date: "28/07/2023",
-    tags: ["stem", "giáo dục", "mầm non"],
-  },
-  {
-    id: 3,
-    title: "Quy trình sản xuất đồ chơi gỗ bền vững",
-    content:
-      "Từ những khúc gỗ thô sơ đến sản phẩm tinh xảo, quy trình sản xuất đồ chơi gỗ đòi hỏi sự tỉ mỉ và trách nhiệm với môi trường. Chúng tôi chỉ sử dụng gỗ từ các nguồn bền vững và áp dụng các biện pháp thân thiện với môi trường trong toàn bộ quy trình...",
-    image:
-      "https://images.unsplash.com/photo-1519340241574-2cec6aef0c01?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
-    date: "10/08/2023",
-    tags: ["sản xuất", "phát triển bền vững", "gỗ bền vững"],
-  },
-  {
-    id: 4,
-    title: "Trò chơi phát triển tư duy cho trẻ 3-5 tuổi",
-    content:
-      "Giai đoạn từ 3-5 tuổi là thời kỳ vàng cho sự phát triển não bộ của trẻ. Các trò chơi đơn giản nhưng hiệu quả có thể giúp trẻ xây dựng nền tảng tư duy vững chắc. Bài viết giới thiệu 10 trò chơi dễ thực hiện tại nhà...",
-    image:
-      "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1472&q=80",
-    date: "23/09/2023",
-    tags: ["tư duy", "trẻ em", "học qua chơi"],
-  },
-  {
-    id: 5,
-    title: "Giáo dục STEM tại Việt Nam - Thực trạng và tiềm năng",
-    content:
-      "Giáo dục STEM đang ngày càng được chú trọng tại Việt Nam. Bài viết phân tích thực trạng, thách thức và tiềm năng phát triển của mô hình giáo dục này, đồng thời giới thiệu các sáng kiến đang được triển khai tại các trường học...",
-    image:
-      "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1422&q=80",
-    date: "15/10/2023",
-    tags: ["stem", "giáo dục", "Việt Nam"],
-  },
-  {
-    id: 6,
-    title: "Tương lai của đồ chơi gỗ trong thời đại số",
-    content:
-      "Mặc dù công nghệ số đang thống trị thị trường đồ chơi, đồ chơi gỗ vẫn giữ vững vị thế của mình. Bài viết khám phá sự kết hợp giữa truyền thống và hiện đại, cũng như xu hướng phát triển của đồ chơi gỗ trong tương lai...",
-    image:
-      "https://images.unsplash.com/photo-1597392582469-a697323d52c1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1425&q=80",
-    date: "07/11/2023",
-    tags: ["công nghệ", "đồ chơi gỗ", "tương lai"],
-  },
-];
-
-// Lấy tất cả các tag từ dữ liệu
-const getAllTags = () => {
-  const tags = new Set();
-  blogPosts.forEach((post) => {
-    post.tags.forEach((tag) => tags.add(tag));
-  });
-  return Array.from(tags);
-};
-
 const Blog = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
@@ -124,21 +51,16 @@ const Blog = () => {
     },
   });
 
-  // Xử lý tìm kiếm và lọc
-
-  // Xử lý thay đổi từ khóa tìm kiếm
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
   };
 
-  // Xử lý thay đổi tag lọc
   const handleTagChange = (e) => {
     setSelectedTag(e.target.value);
   };
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
-    // Ở đây sẽ thêm logic để lấy dữ liệu từ API
   };
 
   return (
@@ -208,7 +130,6 @@ const Blog = () => {
           </div>
         </div>
 
-        {/* Danh sách bài viết */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
           {(postsData.data || []).length > 0 ? (
             (postsData.data || []).map((post) => (
@@ -218,7 +139,7 @@ const Blog = () => {
               >
                 <div className="relative h-48 overflow-hidden">
                   <img
-                    src={`${config.BACKEND_URL}${post.image.url}`}
+                    src={`${config.BACKEND_URL}${post.image?.url}`}
                     alt={post.title}
                     className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
                   />
@@ -232,7 +153,7 @@ const Blog = () => {
                   </h2>
                   <div dangerouslySetInnerHTML={{ __html: post.content }}></div>
                   <div className="flex flex-wrap gap-2 mb-4">
-                    {post.tags.map((tag) => (
+                    {(post.tags || []).map((tag) => (
                       <span
                         key={tag.id}
                         className="bg-amber-50 text-[#8b5e34] px-2 py-1 text-xs rounded-full"

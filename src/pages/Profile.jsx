@@ -184,7 +184,10 @@ const Profile = () => {
                   {ordersData?.data?.length > 0 ? (
                     <div className="space-y-6">
                       {ordersData.data.map((order) => (
-                        <div key={order.id} className="border border-[#ccc] rounded-lg p-4">
+                        <div
+                          key={order.id}
+                          className="border border-[#ccc] rounded-lg p-4"
+                        >
                           <div className="flex justify-between items-start mb-4">
                             <div>
                               <p className="text-sm text-gray-500">
@@ -212,7 +215,7 @@ const Profile = () => {
                                 <div className="w-16 h-16 bg-gray-200 rounded flex items-center justify-center">
                                   {detail.product?.primaryImage ? (
                                     <img
-                                      src={`${config.BACKEND_URL}${detail.product.primaryImage.url}`}
+                                      src={`${config.BACKEND_URL}${detail.product.primaryImage?.url}`}
                                       alt={detail?.product?.name}
                                       className="w-full h-full object-cover rounded"
                                     />

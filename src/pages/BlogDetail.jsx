@@ -1,12 +1,8 @@
-import React, { useState, useEffect } from "react";
 import { Helmet } from "react-helmet-async";
-import { Link, useParams, useNavigate } from "react-router-dom";
-import MainLayout from "../layouts/MainLayout";
-
-// Sử dụng dữ liệu mẫu từ Blog.jsx
-import { blogPosts } from "./Blog";
+import { Link, useParams } from "react-router-dom";
 import { config } from "../config/env";
 import { useGetPosts } from "../hooks/posts/use-get-posts";
+import MainLayout from "../layouts/MainLayout";
 
 const BlogDetail = () => {
   const { id } = useParams();
@@ -89,7 +85,7 @@ const BlogDetail = () => {
           {/* Hình ảnh bài viết */}
           <div className="relative w-full h-64 md:h-96 overflow-hidden">
             <img
-              src={`${config.BACKEND_URL}${post.image.url}`}
+              src={`${config.BACKEND_URL}${post.image?.url}`}
               alt={post.title}
               className="w-full h-full object-cover"
             />
@@ -107,7 +103,7 @@ const BlogDetail = () => {
                 {post.title}
               </h1>
               <div className="flex flex-wrap gap-2 mb-6">
-                {post.tags.map((tag) => (
+                {(post.tags || []).map((tag) => (
                   <Link
                     key={tag.id}
                     to={`/blog?tag=${tag}`}
@@ -229,7 +225,7 @@ const BlogDetail = () => {
                 >
                   <div className="relative h-48 overflow-hidden">
                     <img
-                      src={relatedPost.image.url}
+                      src={relatedPost.image?.url}
                       alt={relatedPost.title}
                       className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
                     />
