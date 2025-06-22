@@ -53,7 +53,7 @@ const Cart = () => {
 
     return (
         <MainLayout>
-            <div className="container mx-auto">
+            <div className="container mx-auto py-8 px-4 md:px-8">
                 {/* Breadcrumb */}
                 <nav className="flex mb-6 text-sm">
                     <Link to="/" className="text-gray-500 hover:text-gray-700">
@@ -74,7 +74,7 @@ const Cart = () => {
                                     Sản phẩm ({totalItems})
                                 </span>
                                 <button
-                                    className="text-red-500 hover:text-red-700"
+                                    className="text-[#d89c4a] hover:text-[#c78f43] cursor-pointer"
                                     onClick={clearCart}
                                 >
                                     Xóa tất cả
@@ -103,7 +103,7 @@ const Cart = () => {
                                                 >
                                                     {item.title}
                                                 </Link>
-                                                <div className="font-bold text-red-600">
+                                                <div className="font-bold text-red-800">
                                                     {(
                                                         item.price *
                                                         item.quantity
@@ -120,7 +120,7 @@ const Cart = () => {
                                             <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mt-3">
                                                 <div className="flex items-center mb-3 sm:mb-0">
                                                     <button
-                                                        className="bg-gray-200 px-2 py-1 rounded-l"
+                                                        className="bg-[#d89c4a] text-white px-2 py-1 rounded-l hover:bg-[#c78f43] cursor-pointer"
                                                         onClick={() =>
                                                             item.quantity > 1 &&
                                                             updateQuantity(
@@ -136,7 +136,7 @@ const Cart = () => {
                                                         {item.quantity}
                                                     </span>
                                                     <button
-                                                        className="bg-gray-200 px-2 py-1 rounded-r"
+                                                        className="bg-[#d89c4a] text-white px-2 py-1 rounded-r hover:bg-[#c78f43] cursor-pointer"
                                                         onClick={() =>
                                                             updateQuantity(
                                                                 item.id,
@@ -150,7 +150,7 @@ const Cart = () => {
                                                 </div>
 
                                                 <button
-                                                    className="text-red-500 hover:text-red-700 flex items-center"
+                                                    className="text-[#d89c4a] hover:text-[#c78f43] flex items-center cursor-pointer"
                                                     onClick={() =>
                                                         removeFromCart(item.id)
                                                     }
@@ -209,7 +209,7 @@ const Cart = () => {
                                             placeholder="Nhập mã giảm giá"
                                             className="border rounded-l px-2 py-1 text-sm w-32"
                                         />
-                                        <button className="bg-gray-200 hover:bg-gray-300 text-gray-800 px-2 py-1 rounded-r text-sm">
+                                        <button className="bg-gray-200 hover:bg-gray-300 text-gray-800 px-2 py-1 rounded-r text-sm cursor-pointer">
                                             Áp dụng
                                         </button>
                                     </div>
@@ -218,17 +218,16 @@ const Cart = () => {
 
                             <div className="flex justify-between font-bold text-lg mb-6">
                                 <span>Tổng cộng:</span>
-                                <span className="text-red-600">
+                                <span className="text-red-800">
                                     {totalAmount.toFixed(2)}₫
                                 </span>
                             </div>
 
                             <Button
-                                variant="success"
                                 fullWidth
                                 as={Link}
                                 to="/checkout"
-                                className="bg-green-600 hover:bg-green-700 mb-3"
+                                className="bg-[#d89c4a] hover:bg-[#c78f43] text-white mb-3"
                             >
                                 Tiến hành thanh toán
                             </Button>

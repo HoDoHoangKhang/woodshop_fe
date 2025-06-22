@@ -419,17 +419,8 @@ const ProductDetail = () => {
                                                     : null,
                                             discountPrice: relatedProduct.price,
                                         }}
-                                        addToCart={() => {
-                                            addToCart(
-                                                {
-                                                    id: relatedProduct.id,
-                                                    title: relatedProduct.name,
-                                                    image: `${config.BACKEND_URL}${relatedProduct.primaryImage?.url}`,
-                                                    price: relatedProduct.price,
-                                                    quantity: 1,
-                                                },
-                                                1
-                                            );
+                                        addToCart={(product) => {
+                                            addToCart(product, 1);
                                             success(
                                                 "Đã thêm sản phẩm vào giỏ hàng!"
                                             );

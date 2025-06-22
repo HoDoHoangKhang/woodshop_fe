@@ -481,9 +481,9 @@ const Checkout = () => {
                       <p className="mb-2">
                         <strong>Thông tin chuyển khoản:</strong>
                       </p>
-                      <p>Ngân hàng: Vietcombank</p>
-                      <p>Số tài khoản: 0123456789</p>
-                      <p>Chủ tài khoản: CÔNG TY TNHH CHÀNG TRAI GỖ</p>
+                      <p>Ngân hàng: ACB</p>
+                      <p>Số tài khoản: 39196417</p>
+                      <p>Chủ tài khoản: TRUONG DINH TRUNG</p>
                       <p className="mt-2 text-sm text-gray-600">
                         Nội dung chuyển khoản: [Họ tên] - [Số điện thoại]
                       </p>
@@ -520,10 +520,6 @@ const Checkout = () => {
                   <div className="flex justify-between mb-2">
                     <span>Tạm tính:</span>
                     <span>{totalAmount.toFixed(2)}₫</span>
-                  </div>
-                  <div className="flex justify-between mb-2">
-                    <span>Phí ship:</span>
-                    <span>—</span>
                   </div>
 
                   <div className="flex mb-2">

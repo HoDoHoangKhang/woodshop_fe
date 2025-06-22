@@ -77,30 +77,17 @@ const Header = () => {
                     <div className="flex justify-between items-center">
                         <div className="flex items-center space-x-4">
                             <a
-                                href="#"
+                                href="https://www.facebook.com/stem4good.trungfounder/"
                                 className="flex items-center text-white"
+                                target="_blank"
                             >
                                 <FaFacebook />
-                            </a>
-                            <a
-                                href="#"
-                                className="flex items-center text-white"
-                            >
-                                <IoLogoYoutube />
                             </a>
                         </div>
                         <div className="flex items-center space-x-6">
                             <div className="flex items-center gap-0.5">
-                                <FiPhone />
-                                <span>Cửa Hàng: 0123 456 789</span>
-                            </div>
-                            <div className="flex items-center gap-0.5">
-                                <HiOutlineUserGroup />
-                                <span>Đại Lý & Phân phối: 0987 654 321</span>
-                            </div>
-                            <div className="flex items-center gap-0.5">
                                 <LuMail />
-                                <span>contact@goodforstem.com</span>
+                                <span>stem4goodvn@gmail.com</span>
                             </div>
                         </div>
                     </div>

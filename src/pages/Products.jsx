@@ -6,11 +6,16 @@ import ProductCard from "../components/ui/ProductCard";
 import { config } from "../config/env";
 import { useGetProducts } from "../hooks/products/use-get-products";
 import MainLayout from "../layouts/MainLayout";
+import { useCart } from "../context/CartContext";
+import useToast from "../hooks/useToast";
 
 const Products = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [searchTerm, setSearchTerm] = useState("");
     const [selectedCategory, setSelectedCategory] = useState("");
+
+    const { addToCart } = useCart();
+    const { success } = useToast();
 
     const { data: productsData } = useGetProducts({
         fields: [
@@ -55,13 +60,6 @@ const Products = () => {
 
     const handlePageChange = (page) => {
         setCurrentPage(page);
-    };
-
-    const formatPrice = (price) => {
-        if (price === null || price === undefined) {
-            return null;
-        }
-        return new Intl.NumberFormat("vi-VN").format(price);
     };
 
     return (
@@ -127,23 +125,12 @@ const Products = () => {
                                     id: product.id,
                                     title: product.name,
                                     image: `${config.BACKEND_URL}${product.primaryImage?.url}`,
-                                    price: formatPrice(product.price),
-                                    originalPrice: formatPrice(
-                                        product.originalPrice
-                                    ),
-                                    discountPrice: formatPrice(product.price),
+                                    price: product.price,
+                                    originalPrice: product.originalPrice,
+                                    discountPrice: product.price,
                                 }}
-                                addToCart={() => {
-                                    addToCart(
-                                        {
-                                            id: product.id,
-                                            title: product.name,
-                                            image: `${config.BACKEND_URL}${product.primaryImage?.url}`,
-                                            price: product.price,
-                                            quantity: 1,
-                                        },
-                                        1
-                                    );
+                                addToCart={(product) => {
+                                    addToCart(product, 1);
                                     success("Đã thêm sản phẩm vào giỏ hàng!");
                                 }}
                                 showDiscount={true}
