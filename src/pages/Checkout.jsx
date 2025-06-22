@@ -37,8 +37,13 @@ const Checkout = () => {
         success("Đặt hàng thành công!");
         navigate(`/order-confirmation?code=${data.data?.order?.code}`);
       },
-      onError: () => {
-        error("Có lỗi xảy ra khi đặt hàng. Vui lòng thử lại sau!");
+      onError: (err) => {
+        error(
+          err?.error?.details?.email ||
+            err?.error?.details?.fullName ||
+            err?.error?.details?.phoneNumber ||
+            "Có lỗi xảy ra khi đặt hàng. Vui lòng thử lại sau!"
+        );
       },
     },
   });
@@ -416,7 +421,7 @@ const Checkout = () => {
                 </h2>
 
                 <div className="space-y-4">
-                  <div className="flex items-center">
+                  <div className="flex items-center cursor-pointer">
                     <input
                       type="radio"
                       id="payment-cod"
@@ -426,7 +431,10 @@ const Checkout = () => {
                       checked={formData.paymentMethod === "CASH_ON_DELIVERY"}
                       onChange={handleChange}
                     />
-                    <label htmlFor="payment-cod" className="flex items-center">
+                    <label
+                      htmlFor="payment-cod"
+                      className="flex items-center cursor-pointer"
+                    >
                       <svg
                         className="w-8 h-8 mr-2 text-gray-600"
                         fill="none"
@@ -445,7 +453,7 @@ const Checkout = () => {
                     </label>
                   </div>
 
-                  <div className="flex items-center">
+                  <div className="flex items-center cursor-pointer">
                     <input
                       type="radio"
                       id="payment-bank"
@@ -455,7 +463,10 @@ const Checkout = () => {
                       checked={formData.paymentMethod === "BANKING"}
                       onChange={handleChange}
                     />
-                    <label htmlFor="payment-bank" className="flex items-center">
+                    <label
+                      htmlFor="payment-bank"
+                      className="flex items-center cursor-pointer"
+                    >
                       <svg
                         className="w-8 h-8 mr-2 text-gray-600"
                         fill="none"
@@ -564,19 +575,13 @@ const Checkout = () => {
 
                 <p className="text-sm text-gray-500 mt-4">
                   Bằng cách đặt hàng, bạn đồng ý với
-                  <Link
-                    to="/terms"
-                    className="text-[#d89c4a] hover:underline ml-1"
-                  >
+                  <span className="text-[#d89c4a] ml-1">
                     điều khoản dịch vụ
-                  </Link>{" "}
+                  </span>
                   và{" "}
-                  <Link
-                    to="/privacy"
-                    className="text-[#d89c4a] hover:underline"
-                  >
+                  <span className="text-[#d89c4a] ml-1">
                     chính sách bảo mật
-                  </Link>{" "}
+                  </span>
                   của chúng tôi.
                 </p>
               </div>

@@ -155,7 +155,7 @@ const Contact = () => {
               <div className="text-right">
                 <button
                   type="submit"
-                  className="bg-[#d89c4a] hover:bg-[#c88c3a] text-white px-7 py-2.5 font-medium"
+                  className="bg-[#d89c4a] hover:bg-[#c88c3a] text-white px-7 py-2.5 font-medium cursor-pointer"
                   disabled={contactMutation.isPending}
                 >
                   Gửi

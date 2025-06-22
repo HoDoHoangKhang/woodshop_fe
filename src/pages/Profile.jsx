@@ -96,7 +96,7 @@ const Profile = () => {
                 <nav className="space-y-2">
                   <button
                     onClick={() => setActiveTab("profile")}
-                    className={`flex items-center gap-2 w-full px-4 py-2 rounded-lg transition-colors ${
+                    className={`flex items-center gap-2 w-full px-4 py-2 rounded-lg transition-colors cursor-pointer ${
                       activeTab === "profile"
                         ? "bg-[#d89c4a] text-white"
                         : "text-[#9e9181] hover:bg-[#f5f5f5]"
@@ -107,7 +107,7 @@ const Profile = () => {
                   </button>
                   <button
                     onClick={() => setActiveTab("orders")}
-                    className={`flex items-center gap-2 w-full px-4 py-2 rounded-lg transition-colors ${
+                    className={`flex items-center gap-2 w-full px-4 py-2 rounded-lg transition-colors cursor-pointer ${
                       activeTab === "orders"
                         ? "bg-[#d89c4a] text-white"
                         : "text-[#9e9181] hover:bg-[#f5f5f5]"
