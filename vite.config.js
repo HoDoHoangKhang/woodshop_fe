@@ -10,6 +10,6 @@ export default defineConfig({
     cors: {
       origin: "*",
     },
-    allowedHosts: ["woodshop.protrack.cloud"],
+    allowedHosts: ["stemforgood.vn"],
   },
 });
