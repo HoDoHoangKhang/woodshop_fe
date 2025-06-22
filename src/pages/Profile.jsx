@@ -150,28 +150,6 @@ const Profile = () => {
                         readOnly
                       />
                     </div>
-                    <div>
-                      <label className="block text-sm font-medium text-[#9e9181] mb-1">
-                        Số điện thoại
-                      </label>
-                      <input
-                        type="tel"
-                        value={user?.phone || ""}
-                        className="w-full px-4 py-2 border border-[#e0e0e0] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#d89c4a] focus:border-transparent"
-                        readOnly
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-[#9e9181] mb-1">
-                        Địa chỉ
-                      </label>
-                      <textarea
-                        value={user?.address || ""}
-                        className="w-full px-4 py-2 border border-[#e0e0e0] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#d89c4a] focus:border-transparent"
-                        rows="3"
-                        readOnly
-                      />
-                    </div>
                   </div>
                 </div>
               )}

@@ -145,36 +145,6 @@ const SocialResponsibility = () => {
               Và bạn – chính là một phần trong hành trình ấy.
             </p>
           </div>
-
-          {/* Gallery */}
-          <div className="mt-12">
-            <h2 className="text-2xl font-bold mb-6 text-[#8b5e34] text-center">
-              Hình ảnh hoạt động
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div className="relative h-48 rounded-lg overflow-hidden">
-                <img
-                  src="/images/activity-1.avif"
-                  alt="Lớp học STEM"
-                  className="absolute w-full h-full object-cover"
-                />
-              </div>
-              <div className="relative h-48 rounded-lg overflow-hidden">
-                <img
-                  src="/images/activity-2.avif"
-                  alt="Lớp học STEM"
-                  className="absolute w-full h-full object-cover"
-                />
-              </div>
-              <div className="relative h-48 rounded-lg overflow-hidden">
-                <img
-                  src="/images/activity-1.avif"
-                  alt="Lớp học STEM"
-                  className="absolute w-full h-full object-cover"
-                />
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </MainLayout>

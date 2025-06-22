@@ -98,13 +98,14 @@ const Cart = () => {
                           {item.title}
                         </Link>
                         <div className="font-bold text-red-800">
-                          {totalAmount.toLocaleString("vi-VN")}đ
+                          {(item.price * item.quantity).toLocaleString("vi-VN")}
+                          đ
                         </div>
                       </div>
 
                       <div className="text-gray-500 mb-2">
                         <span>
-                          {`${totalAmount.toLocaleString("vi-VN")}đ`} / sản phẩm
+                          {`${item.price.toLocaleString("vi-VN")}đ`} / sản phẩm
                         </span>
                       </div>
 

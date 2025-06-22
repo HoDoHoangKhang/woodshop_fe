@@ -31,6 +31,7 @@ const ForgotPassword = () => {
   const forgotPasswordMutation = useForgotPassword({
     mutationConfig: {
       onSuccess: () => {
+        navigate("/login");
         success("Đã gửi email đặt lại mật khẩu!");
       },
       onError: () => {
@@ -47,7 +48,7 @@ const ForgotPassword = () => {
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-amber-100 to-amber-50">
       <div className="bg-white shadow-xl rounded-2xl p-8 w-full max-w-md">
         <div className="text-center mb-8">
-          <h1 className="text-2xl font-bold text-[#302924] mb-2">
+          <h1 className="text-2xl font-bold text-[#302924] mb-2 cursor-pointer">
             Quên mật khẩu?
           </h1>
           <p className="text-[#9e9181]">

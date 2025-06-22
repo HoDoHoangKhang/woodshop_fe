@@ -238,36 +238,6 @@ const About = () => {
               </div>
             </div>
           </div>
-
-          {/* Gallery */}
-          <div className="mt-16">
-            <h2 className="text-2xl font-bold mb-8 text-[#8b5e34] text-center">
-              Hình ảnh hoạt động
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div className="relative h-48 md:h-64 rounded-lg overflow-hidden">
-                <img
-                  src="/images/activity-1.avif"
-                  alt="Đồ chơi gỗ STEM"
-                  className="absolute w-full h-full object-cover"
-                />
-              </div>
-              <div className="relative h-48 md:h-64 rounded-lg overflow-hidden">
-                <img
-                  src="/images/activity-2.avif"
-                  alt="Trẻ em chơi đồ chơi gỗ"
-                  className="absolute w-full h-full object-cover"
-                />
-              </div>
-              <div className="relative h-48 md:h-64 rounded-lg overflow-hidden">
-                <img
-                  src="/images/activity-1.avif"
-                  alt="Xưởng sản xuất đồ chơi gỗ"
-                  className="absolute w-full h-full object-cover"
-                />
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </MainLayout>

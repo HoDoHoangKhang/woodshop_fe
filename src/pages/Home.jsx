@@ -12,7 +12,7 @@ const Home = () => {
       <Hero />
       <Introduction />
       <Services />
-      <ProductSection title="SẢN PHẨM MỚI NHẤT" maxItems={4} />
+      <ProductSection title="SẢN PHẨM MỚI NHẤT" maxItems={6} />
       <Founder />
       <Activities />
     </MainLayout>

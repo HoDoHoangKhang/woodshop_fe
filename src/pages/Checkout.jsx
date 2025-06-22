@@ -286,6 +286,7 @@ const Checkout = () => {
                       name="email"
                       value={formData.email}
                       onChange={handleChange}
+                      required
                       className="w-full px-4 py-3 border border-gray-300 focus:outline-none focus:border-[#d89c4a]"
                     />
                   </div>
