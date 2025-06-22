@@ -208,15 +208,6 @@ const Blog = () => {
               <p className="text-gray-400 mt-2">
                 Vui lòng thử tìm kiếm với từ khóa khác hoặc chọn lại chủ đề
               </p>
-              <button
-                onClick={() => {
-                  setSearchTerm("");
-                  setSelectedTag("");
-                }}
-                className="mt-4 px-5 py-2 bg-[#d89c4a] text-white rounded-lg hover:bg-[#c88c3a] transition-colors"
-              >
-                Xem tất cả bài viết
-              </button>
             </div>
           )}
         </div>
