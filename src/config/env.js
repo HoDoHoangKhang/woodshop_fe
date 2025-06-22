@@ -1,4 +1,4 @@
 export const config = {
   BACKEND_URL:
-    import.meta.env.VITE_BACKEND_URL || "http://api.stemforgood.vn/api",
+    import.meta.env.VITE_BACKEND_URL || "https://api.stemforgood.vn/api",
 };
