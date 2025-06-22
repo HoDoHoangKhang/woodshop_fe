@@ -122,6 +122,7 @@ export default function RegisterPage() {
           <button
             type="submit"
             className="w-full bg-amber-600 hover:bg-amber-700 text-white py-2 rounded-xl transition cursor-pointer"
+            disabled={registerMutation.isPending}
           >
             Đăng ký
           </button>

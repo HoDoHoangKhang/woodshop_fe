@@ -1,18 +1,15 @@
-import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
-import MainLayout from "../layouts/MainLayout";
+import { Link, useNavigate } from "react-router-dom";
 import Button from "../components/ui/Button";
 import { useCart } from "../context/CartContext";
-import useToast from "../hooks/useToast";
-import { config } from "../config/env";
-import { placeOrder } from "../services/api";
 import { usePlaceOrder } from "../hooks/orders/use-place-order";
+import useToast from "../hooks/useToast";
+import MainLayout from "../layouts/MainLayout";
 
 const Checkout = () => {
-  const searchParams = new URLSearchParams(window.location.search);
   const navigate = useNavigate();
-  const { cartItems, totalItems, totalAmount } = useCart();
+  const { cartItems, totalAmount } = useCart();
   const { success, error } = useToast();
   const [formData, setFormData] = useState({
     fullName: "",
@@ -510,7 +507,7 @@ const Checkout = () => {
                         </div>
                       </div>
                       <div className="font-medium">
-                        {(item.price * item.quantity).toFixed(2)}₫
+                        {(item.price * item.quantity).toLocaleString("vi-VN")}đ
                       </div>
                     </div>
                   ))}
@@ -519,7 +516,7 @@ const Checkout = () => {
                 <div className="border-b pb-4 mb-4">
                   <div className="flex justify-between mb-2">
                     <span>Tạm tính:</span>
-                    <span>{totalAmount.toFixed(2)}₫</span>
+                    <span>{totalAmount.toLocaleString("vi-VN")}₫</span>
                   </div>
 
                   <div className="flex mb-2">
@@ -542,7 +539,7 @@ const Checkout = () => {
                   {discount > 0 && (
                     <div className="flex justify-between text-green-600">
                       <span>Giảm giá:</span>
-                      <span>-{discount.toFixed(2)}₫</span>
+                      <span>{`-${discount.toLocaleString("vi-VN")}đ`}</span>
                     </div>
                   )}
                 </div>
@@ -550,11 +547,7 @@ const Checkout = () => {
                 <div className="flex justify-between font-bold text-lg mb-6">
                   <span>Tổng tiền:</span>
                   <span className="text-red-600">
-                    {(totalAmount - discount > 0
-                      ? totalAmount - discount
-                      : 0
-                    ).toFixed(2)}
-                    ₫
+                    {`${totalAmount.toLocaleString("vi-VN")}đ`}
                   </span>
                 </div>
 
@@ -562,6 +555,7 @@ const Checkout = () => {
                   <Button
                     type="submit"
                     className="w-full bg-[#d89c4a] hover:bg-[#c88c3a] text-white py-3 px-6 rounded-md"
+                    disabled={placeOrderMutation.isPending}
                   >
                     Đặt hàng
                   </Button>
